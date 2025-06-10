@@ -16,33 +16,86 @@ add_action('admin_menu', 'register_sl_app_settings_submenu');
 
 function render_sl_app_settings_page()
 {
+    display_sl_app_alert();
     ?>
     <div class="wrap">
-        <h1>Налаштування теми</h1>
         <form method="post" action="options.php" enctype="multipart/form-data">
             <?php
-            settings_fields('sl_app_main_group'); // Виводимо nonce та інші безпечні дані для групи налаштувань
-            do_settings_sections('sl_app_main_slug'); // Виводимо секції та поля налаштувань
+            settings_fields('sl_app_settings_group'); // Виводимо nonce та інші безпечні дані для групи налаштувань
+            do_settings_sections('sl_app_settings_slug'); // Виводимо секції та поля налаштувань
             //++
             ?>
             <div class="mtab_hero">
                 <ul class="mtab_header">
-                    <li class="mtab_header_item tab_active" id="main">Головна</li>
-                    <li class="mtab_header_item" id="settings">Налаштування</li>
+                    <li class="mtab_header_item tab_active" id="auto_fill_data">Дані для заповнення</li>
+                    <li class="mtab_header_item " id="security_data">Безпека</li>
                 </ul>
                 <div class="mtab_content">
-                    <div class="mtab_content_item content_active" id="content_main">
+                    <div class="mtab_content_item content_active" id="content_auto_fill_data">
 
                     </div>
-                    <div class="mtab_content_item" id="content_settings">
+                    <div class="mtab_content_item" id="content_security_data">
+                        <div class="base_auth_container">
+                            <div class="base_auth_add">
+                                <label for="ba_add_login">Login</label>
+                                <input type="text" id="ba_add_login" placeholder="Auth Login">
+                                <label for="ba_add_password">Password</label>
+                                <input type="text" id="ba_add_password" placeholder="Auth Password">
+                                <div class="ba_add_action">
+                                    <input type="button" id="ba_add_generate" value="Generate">
+                                    <input type="button" id="ba_add_add" value="Add">
+                                </div>
 
+                            </div>
+                            <div class="base_auth_preview">
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-
-            <input type="submit" value="Save Changes" class="button button-primary">
         </form>
     </div>
+
     <?php
 }
+
+function enqueue_sl_app_settings_style_and_script($hook)
+{
+    // Перевіряємо, чи це сторінка кастомного меню "sl_app_settings_slug"
+    if ($hook === 'applications_page_sl_app_settings') {
+        // Підключаємо CSS стилі
+        wp_enqueue_style(
+            'sl_app_settings-style', // Унікальний ID для стилю
+            SL_APPLICATIONS_URL . '/assets/styles/ap_settings.css', // Шлях до файлу стилю
+            [], // Залежності
+            '1.0.0' // Версія стилю
+        );
+
+        // Підключаємо JS скрипт
+        wp_enqueue_script(
+            'sl_app_settings-script', // Унікальний ID для скрипту
+            SL_APPLICATIONS_URL . '/assets/scripts/ap_settings.js', // Шлях до файлу скрипту
+            ['jquery'], // Залежність від jQuery
+            '1.0.0', // Версія скрипту
+            true // Підключаємо скрипт внизу сторінки (після контенту)
+        );
+        // Підключаємо JS скрипт
+        wp_enqueue_script(
+            'sl_app_settings-ajax-script', // Унікальний ID для скрипту
+            SL_APPLICATIONS_URL . '/assets/scripts/ajax.js', // Шлях до файлу скрипту
+            ['jquery'], // Залежність від jQuery
+            '1.0.0', // Версія скрипту
+            true // Підключаємо скрипт внизу сторінки (після контенту)
+        );
+
+        function enqueue_ajax_script() {
+            wp_localize_script('sl_app_settings-ajax-script', 'ajax_object', array('ajaxurl' => admin_url('admin-ajax.php')));
+        }
+        add_action('wp_enqueue_scripts', 'enqueue_ajax_script');
+
+    }
+}
+
+add_action('admin_enqueue_scripts', 'enqueue_sl_app_settings_style_and_script');
