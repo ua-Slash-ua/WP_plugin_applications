@@ -29,6 +29,10 @@
     background: linear-gradient(180deg, #405BE7, #ffffff);
     color: #000000;
 }
+.mtab_header li{
+    padding: 0;
+    margin: 0;
+}
 
 .mtab_header_item:hover {
     background: linear-gradient(180deg, #405BE7, #ffffff);
@@ -57,4 +61,146 @@
 }
 #wpcontent{
     padding-left: 0;
+}
+
+/* Стилі для Base Auth*/
+/* Основний контейнер */
+.base_auth_container {
+    display: flex;
+    gap: 20px; /* Відступ між блоками */
+    width: 100%;
+    max-width: 100vw;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+}
+
+/* Контейнер авторизації */
+.base_auth_add {
+    flex: 3.5; /* 3/10 ширини */
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Опис авторизації */
+.base_auth_context h4 {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #333;
+}
+
+.base_auth_context p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+/* Поля введення */
+.base_auth_label {
+    margin-top: 15px;
+}
+
+.base_auth_label label {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+}
+
+.base_auth_label input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.base_auth_label input[type="text"]:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+/* Блок кнопок */
+.ba_add_action {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ba_add_action input[type="button"] {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(45deg, #4CAF50, #8BC34A);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    margin: 0 5px;
+}
+
+.ba_add_action input[type="button"]:hover {
+    background: linear-gradient(45deg, #388E3C, #689F38);
+}
+
+.ba_add_action input[type="button"]:active {
+    transform: scale(0.95);
+}
+
+/* Список логінів та паролів */
+.base_auth_preview {
+    flex: 6.5; /* 7/10 ширини */
+    background: #e8f5e9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Вигляд списку */
+.base_auth_preview ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.base_auth_preview li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background: #ffffff;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.base_auth_preview li span {
+    font-size: 14px;
+    color: #333;
+}
+
+.base_auth_preview li input[type="button"] {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.base_auth_preview li input[type="button"]:hover {
+    background: darkred;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+    .base_auth_container {
+        flex-direction: column;
+    }
 }
