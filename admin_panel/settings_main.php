@@ -27,54 +27,19 @@ function render_sl_app_settings_page()
             ?>
             <div class="mtab_hero">
                 <ul class="mtab_header">
-                    <li class="mtab_header_item" id="auto_fill_data">Дані для заповнення</li>
-                    <li class="mtab_header_item tab_active" id="security_data">Безпека</li>
+                    <li class="mtab_header_item" id="main_data">Ендпоінти</li>
+                    <li class="mtab_header_item tab_active" id="endpoint_data">Ендпоінти</li>
+                    <li class="mtab_header_item " id="security_data">Безпека</li>
                 </ul>
                 <div class="mtab_content">
-                    <div class="mtab_content_item" id="content_auto_fill_data">
-
+                    <div class="mtab_content_item" id="content_main_data">
+123
                     </div>
-                    <div class="mtab_content_item  content_active" id="content_security_data">
-                        <div class="base_auth_container">
-                            <div class="base_auth_add">
-                                <div class="base_auth_context">
-                                    <h4>
-                                        Для чого потрібен BASE_AUTH ?
-                                    </h4>
-                                    <p>
-                                        Бо так треба
-                                    </p>
-                                    <h4>
-                                        Формат login & password ?
-                                    </h4>
-                                    <p>
-                                        login = admin <br>
-                                        password = 1234
-                                    </p>
+                    <?php
+                     render_settings_endpoint();
+                     render_settings_security();
 
-
-                                </div>
-                                <div class="base_auth_label">
-                                    <label for="ba_add_login">Login</label>
-                                    <input type="text" id="ba_add_login" placeholder="Auth Login">
-                                    <label for="ba_add_password">Password</label>
-                                    <input type="text" id="ba_add_password" placeholder="Auth Password">
-                                    <div class="ba_add_action">
-                                        <input type="button" id="ba_add_generate" value="Generate">
-                                        <input type="button" id="ba_add_add" value="Add">
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <div class="base_auth_preview">
-                                <h3>
-                                    Перегляд усіх даних
-                                </h3>
-                                <ul></ul>
-                            </div>
-                        </div>
-                    </div>
+                    ?>
                 </div>
             </div>
 
@@ -91,7 +56,14 @@ function enqueue_sl_app_settings_style_and_script($hook)
         // Підключаємо CSS стилі
         wp_enqueue_style(
             'sl_app_settings-style', // Унікальний ID для стилю
-            SL_APPLICATIONS_URL . '/assets/styles/ap_settings.css', // Шлях до файлу стилю
+            SL_APPLICATIONS_URL . '/assets/styles/ap_settings_security.css', // Шлях до файлу стилю
+            [], // Залежності
+            '1.0.0' // Версія стилю
+        );
+        // Підключаємо CSS стилі
+        wp_enqueue_style(
+            'sl_app_settings_endpoint-style', // Унікальний ID для стилю
+            SL_APPLICATIONS_URL . '/assets/styles/ap_settings_endpoint.css', // Шлях до файлу стилю
             [], // Залежності
             '1.0.0' // Версія стилю
         );
@@ -99,11 +71,22 @@ function enqueue_sl_app_settings_style_and_script($hook)
         // Підключаємо JS скрипт
         wp_enqueue_script(
             'sl_app_settings-script', // Унікальний ID для скрипту
-            SL_APPLICATIONS_URL . '/assets/scripts/ap_settings.js', // Шлях до файлу скрипту
+            SL_APPLICATIONS_URL . '/assets/scripts/ap_settings_security.js', // Шлях до файлу скрипту
             ['jquery'], // Залежність від jQuery
             '1.0.0', // Версія скрипту
             true // Підключаємо скрипт внизу сторінки (після контенту)
         );
+        // Підключаємо JS скрипт
+        wp_enqueue_script(
+            'sl_app_settings_endpoint-script', // Унікальний ID для скрипту
+            SL_APPLICATIONS_URL . '/assets/scripts/ap_settings_endpoint.js', // Шлях до файлу скрипту
+            ['jquery'], // Залежність від jQuery
+            '1.0.0', // Версія скрипту
+            true // Підключаємо скрипт внизу сторінки (після контенту)
+        );
+
+
+
         // Підключаємо JS скрипт
         wp_enqueue_script(
             'sl_app_settings-ajax-script', // Унікальний ID для скрипту
