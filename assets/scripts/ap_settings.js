@@ -1,4 +1,3 @@
-
 function actionTab(tabs) {
     tabs.forEach(tabName => {
         document.getElementById(tabName).addEventListener('click', function () {
@@ -30,22 +29,36 @@ function generateSecure(length = 32) {
     return result;
 }
 
-function generateLogAndPass(){
-    let idInput = ['ba_add_login','ba_add_password']
+function generateLogAndPass() {
+    let idInput = ['ba_add_login', 'ba_add_password']
     const btnGenerate = document.querySelector(`#ba_add_generate`)
-    btnGenerate.addEventListener('click', function (){
-        idInput.forEach(elId =>{
-            document.getElementById(elId).value = generateSecure(28)
+    btnGenerate.addEventListener('click', function () {
+        idInput.forEach(elId => {
+            if (elId === 'ba_add_login') {
+                document.getElementById(elId).value = 'sl_l' + generateSecure(28)
+            }
+            if (elId === 'ba_add_password') {
+                document.getElementById(elId).value = 'sl_p' + generateSecure(28)
+            }
+
         })
     })
 }
 
-function addLogAndPass(){
+function addLogAndPass() {
     let data = {}
     const btnAdd = document.querySelector(`#ba_add_add`)
-    btnAdd.addEventListener('click', function (){
-        data['login'] = 'sl_l' + document.getElementById('ba_add_login').value
-        data['pass'] = 'sl_p' + document.getElementById('ba_add_password').value
+    btnAdd.addEventListener('click', function () {
+
+        const log = document.getElementById('ba_add_login').value.trim()
+        const pass = document.getElementById('ba_add_password').value.trim()
+        if (!log || !pass || !pass.startsWith('sl_p') || !log.startsWith('sl_l') || log.length < 32 || pass.length < 32){
+            alertMessage('Некоректні дані для BASE AUTH, подивіться інструкцію вище!', 'success')
+            return;
+        }
+
+            data['login'] = log
+        data['pass'] = pass
         callWpAjaxFunction('add_log_and_pass', data)
             .then(response => {
                 loadLogAndPass(response.data.data)
@@ -59,12 +72,12 @@ function addLogAndPass(){
 
 }
 
-function loadLogAndPass(data){
-    function loadContainer(data){
+function loadLogAndPass(data) {
+    function loadContainer(data) {
         const previewContainer = document.querySelector('.base_auth_preview')
         const pcContent = previewContainer.querySelector('ul')
         pcContent.innerHTML = ''
-        data.forEach( logAndPass =>{
+        data.forEach(logAndPass => {
             const liItem = document.createElement('li')
 
             const spanLog = document.createElement('span')
@@ -74,7 +87,7 @@ function loadLogAndPass(data){
             const inputRemove = document.createElement('input')
             inputRemove.type = 'button'
             inputRemove.value = 'X'
-            inputRemove.addEventListener('click', function (){
+            inputRemove.addEventListener('click', function () {
 
                 callWpAjaxFunction('remove_log_and_pass', logAndPass)
                     .then(response => {
@@ -94,7 +107,8 @@ function loadLogAndPass(data){
         previewContainer.appendChild(pcContent)
 
     }
-    if (!data){
+
+    if (!data) {
         callWpAjaxFunction('get_log_and_pass', [])
             .then(response => {
                 loadContainer(response.data.data)
@@ -102,7 +116,7 @@ function loadLogAndPass(data){
             .catch(error => {
                 alertMessage('Не вдалося отримати дані для аутентифікації!', 'error')
             });
-    }else {
+    } else {
         loadContainer(data)
     }
 }
