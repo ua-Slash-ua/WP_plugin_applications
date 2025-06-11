@@ -3,6 +3,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 
 require_once SL_APPLICATIONS_PATH . 'inc/functions/action_classes/create_table.php';
+require_once SL_APPLICATIONS_PATH . 'inc/functions/action_classes/app_option_manager.php';
 
 
 require_once SL_APPLICATIONS_PATH . 'inc/functions/base_auth.php';

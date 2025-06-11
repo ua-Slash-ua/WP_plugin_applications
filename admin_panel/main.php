@@ -1,5 +1,8 @@
 
 <?php
+
+
+
 function register_sl_app_main_menu()
 {
     add_menu_page(
@@ -50,6 +53,9 @@ add_action('admin_init', 'register_settings_sl_app_main_group');
 // Виведення сторінки налаштувань
 function render_sl_app_main_page()
 {
+
+
+
     ?>
     <div class="wrap">
         <h1>Налаштування теми</h1>

@@ -4,8 +4,11 @@ namespace sl_app;
 
 
 
+use wpdb;
+
 class CreateTable
 {
+    protected wpdb $db;
     protected array $tables;
 
     public function __construct(array|object $input)
@@ -15,11 +18,12 @@ class CreateTable
 
     public function generateSQL(): array
     {
+        global $wpdb;
         $queries = [];
 
         foreach ($this->tables as $tableName => $columns) {
             if (!is_array($columns)) continue;
-
+            $tableNameFull = $wpdb->prefix . $tableName;
             $columnsSql = [];
 
             foreach ($columns as $columnName => $definition) {
@@ -33,7 +37,7 @@ class CreateTable
             }
 
             $columnsString = implode(",\n  ", $columnsSql);
-            $queries[$tableName] = "CREATE TABLE `$tableName` (\n  $columnsString\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+            $queries[$tableName] = "CREATE TABLE `$tableNameFull` (\n  $columnsString\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
         }
 
         return $queries;

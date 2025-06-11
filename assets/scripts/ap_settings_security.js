@@ -63,6 +63,8 @@ function addLogAndPass() {
             .then(response => {
                 loadLogAndPass(response.data.data)
                 alertMessage('Дані для аутентифікації додано!', 'success')
+                document.getElementById('ba_add_login').value = ''
+                document.getElementById('ba_add_password').value = ''
             })
             .catch(error => {
                 alertMessage('Дані для аутентифікації не вдалося додати!', 'error')
