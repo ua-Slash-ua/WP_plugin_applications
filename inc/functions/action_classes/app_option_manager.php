@@ -38,3 +38,10 @@ function sl_remove_option(string $optionKey = null, string $optionValue = null, 
 
     return $appManager->removeAppOption($optionKey,$optionId,$optionValue,$optionParentId);
 }
+
+function sl_edit_options(string $key = null, string $old_data = null, string $new_data = null): bool
+{
+    global $appManager;
+
+    return $appManager->editAppOption($key,$old_data,$new_data);
+}

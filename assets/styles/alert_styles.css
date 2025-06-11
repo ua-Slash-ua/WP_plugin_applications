@@ -11,6 +11,7 @@
     border-radius: 15px;
     padding-top: 0.5vw;
     overflow: hidden;
+    z-index: 999;
 }
 .message_alert h3{
     font-size: 1.3vw ;

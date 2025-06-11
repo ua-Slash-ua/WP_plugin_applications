@@ -1,17 +1,4 @@
-function actionTab(tabs) {
-    tabs.forEach(tabName => {
-        document.getElementById(tabName).addEventListener('click', function () {
-            document.querySelectorAll('.mtab_header_item').forEach(navEl => {
-                navEl.classList.remove('tab_active')
-            })
-            document.querySelectorAll('.mtab_content_item').forEach(navEl => {
-                navEl.classList.remove('content_active')
-            })
-            document.getElementById(tabName).classList.add('tab_active')
-            document.getElementById(`content_${tabName}`).classList.add('content_active')
-        })
-    })
-}
+
 
 
 function generateSecure(length = 32) {
@@ -124,8 +111,7 @@ function loadLogAndPass(data) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    let tabs = ['main_data','endpoint_data', 'security_data']
-    actionTab(tabs)
+
     generateLogAndPass()
     addLogAndPass()
     loadLogAndPass()

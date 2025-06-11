@@ -1,0 +1,193 @@
+/* Загальні для опису */
+#content_endpoint_data{
+    flex-direction: column;
+}
+/* Стилі для опису */
+.short_description{
+    width: 100%;
+    height: auto;
+    min-height: 7vh;
+    background-color: #666666;
+    position: relative;
+
+
+}
+.show-visible{
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 20%;
+    min-height: 7vh;
+    background-color: #adadad;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 2vw;
+    color: black;
+    user-select: none;
+    -webkit-user-select: none; /* для Safari */
+    -moz-user-select: none;    /* для Firefox */
+    -ms-user-select: none;     /* для IE/Edge */
+    cursor: pointer;
+}
+.short_description h3{
+    text-align: start;
+    font-size: 2vw;
+    color: black;
+    width: 100%;
+    height: 20%;
+    min-height: 7vh;
+}
+
+/* Стилі для типів */
+.ed_process_type {
+    width: 100%;
+    padding: 2vh 2vw;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    display: flex;
+    gap: 2vw;
+    align-items: flex-start;
+}
+
+/* Блок додавання типу */
+.add_types {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+}
+
+.add_types label {
+    font-weight: bold;
+    font-size: 1.2vw;
+}
+
+.add_types input[type="text"] {
+    padding: 1vh 1vw;
+    font-size: 1vw;
+    border: 0.1vh solid #ccc;
+    border-radius: 0.5vh;
+}
+
+.add_types input[type="button"] {
+    padding: 1vh 1vw;
+    font-size: 1vw;
+    background-color: #007cba;
+    color: white;
+    border: none;
+    border-radius: 0.5vh;
+    cursor: pointer;
+}
+
+/* Блок попереднього перегляду */
+.preview_types {
+    flex: 2;
+    max-height: 40vh;
+    overflow-y: auto;
+    background: #f9f9f9;
+    padding: 1vh 1vw;
+    border: 0.1vh solid #ccc;
+    border-radius: 0.5vh;
+}
+
+.preview_types_list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+}
+
+.preview_types_list_item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 1vh 1vw;
+    border: 0.1vh solid #ddd;
+    border-radius: 0.5vh;
+    font-size: 1vw;
+}
+
+.preview_types_list_item > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5vh;
+}
+
+.preview_types_list_item span {
+    font-size: 1vw;
+}
+
+.preview_types_list_item input[type="button"] {
+    font-size: 0.9vw;
+    padding: 0.5vh 1vw;
+    margin-left: 0.5vw;
+    border: none;
+    border-radius: 0.3vh;
+    background-color: #dc3545;
+    color: white;
+    cursor: pointer;
+}
+
+.preview_types_list_item input[type="button"]:first-child {
+    background-color: #ffc107;
+    color: black;
+}
+
+/*Стилі для попапу редагування типу */
+.pop-up-edit-type {
+    display: none; /* за замовчуванням схований */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #d2d2d2;
+    padding: 2vh 2vw;
+    border-radius: 0.5vw;
+    box-shadow: 0 0 1vw rgba(0,0,0,0.25);
+    width: 30vw;
+    max-width: 400px;
+    z-index: 1000;
+    font-size: 1.5vh;
+    font-family: Arial, sans-serif;
+}
+
+.pop-up-edit-type.active {
+    display: block;
+}
+
+.pop-up-edit-type label {
+    display: block;
+    margin-bottom: 0.5vh;
+    font-weight: 600;
+}
+
+.pop-up-edit-type input[type="text"] {
+    width: 100%;
+    padding: 0.7vh 1vw;
+    margin-bottom: 1.5vh;
+    font-size: 1.6vh;
+    border: 1px solid #ccc;
+    border-radius: 0.3vw;
+    box-sizing: border-box;
+}
+
+.pop-up-edit-type input[type="button"] {
+    padding: 0.8vh 1.5vw;
+    background-color: #0073aa;
+    color: white;
+    border: none;
+    border-radius: 0.4vw;
+    cursor: pointer;
+    font-size: 1.6vh;
+    transition: background-color 0.3s ease;
+}
+
+.pop-up-edit-type input[type="button"]:hover {
+    background-color: #005177;
+}

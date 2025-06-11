@@ -100,5 +100,26 @@ class ApplicationOptionManager
         return $this->db->query($prepared);
     }
 
+    public function editAppOption(string $key = null, string $old_data = null, string $new_data = null): bool
+    {
+        if (is_null($key) || is_null($old_data) || is_null($new_data)) {
+            return false;
+        }
 
+        $table = $this->table;
+
+        // Підготовка SQL запиту
+        $sql = $this->db->prepare(
+            "UPDATE `$table`
+         SET options_value = %s
+         WHERE options_key = %s AND options_value = %s",
+            $new_data, $key, $old_data
+        );
+
+        // Виконання запиту
+        $result = $this->db->query($sql);
+
+        // Повертаємо true, якщо хоча б один рядок був змінений
+        return $result !== false && $result > 0;
+    }
 }
