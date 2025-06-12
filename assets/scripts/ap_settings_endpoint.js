@@ -1,5 +1,5 @@
-function isValidSlug(slug) {
-    return /^[a-zA-Z0-9_-]+$/.test(slug);
+function isValidSlug(slug,symbol = /^[a-zA-Z0-9_-]+$/) {
+    return symbol.test(slug);
 }
 
 function showVisibleElement(btnClass, containerClass) {
@@ -49,7 +49,8 @@ function addEndpointTypes() {
 
     })
 }
-function getEndpointTypes(func){
+
+function getEndpointTypes(func) {
     callWpAjaxFunction('get_endpoint_type')
         .then(response => {
             func(response.data.data)
@@ -58,6 +59,7 @@ function getEndpointTypes(func){
             alertMessage('Не вдалося отримати типи заявок!', 'error')
         });
 }
+
 function loadEndpointTypes(data) {
     try {
         if (!Array.isArray(data)) {
@@ -149,11 +151,97 @@ function loadEndpointTypes(data) {
     }
 }
 
+function loadEndpointTypesSelect(data) {
+    try {
+        if (!Array.isArray(data)) {
+            data = [data]
+        }
+        let name_data = {
+            'name': 'Назва',
+            'slug': 'Слаг',
+        }
+        const select = document.getElementById('choose_ec_label_type')
+        select.innerHTML = ''
+        data.forEach(type => {
+            const option = document.createElement('option')
+            option.value = type['slug']
+            option.textContent = type['name']
+            select.appendChild(option)
+        })
 
+
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+function addLabel() {
+    const btnAdd = document.getElementById('ec_label_add')
+    btnAdd.addEventListener('click', function () {
+        const labelNameItem = document.getElementById('ec_label_name_label')
+        const labelTypeItem = document.getElementById('choose_ec_label_create')
+        const labelMandatItem = document.getElementById('ec_label_mandatory_label')
+
+        if (!labelNameItem.value.trim() || !isValidSlug(labelNameItem.value.trim(),/^[a-zA-Z0-9_]+$/)){
+            alertMessage('Невірно вказані дані для поля!','error')
+            return
+        }
+
+        const ulLabelContainer = document.querySelector('.ec_label_preview').querySelector('ul')
+        const liItem = document.createElement('li')
+
+        const liItemName = document.createElement('li')
+        liItemName.textContent = labelNameItem.value.trim()
+        const liItemType = document.createElement('li')
+        liItemType.textContent = labelTypeItem.value
+        const liItemMandat = document.createElement('li')
+        liItemMandat.textContent = labelMandatItem.checked ? 'on' : 'off';
+
+        const btnRemove = document.createElement('input')
+        btnRemove.type = 'input'
+        btnRemove.value = 'X'
+        liItemMandat.textContent = labelMandatItem.checked ? 'on' : 'off';
+
+        liItem.appendChild(liItemName)
+        liItem.appendChild(liItemType)
+        liItem.appendChild(liItemMandat)
+        liItem.appendChild(btnRemove)
+
+        ulLabelContainer.appendChild(liItem)
+
+        labelNameItem.value = ''
+        labelMandatItem.checked = false
+
+            })
+}
+
+function addEndpoint() {
+    const btnAdd = document.getElementById('ec_label_add')
+    btnAdd.addEventListener('click', function () {
+        let endpoint = {
+
+        }
+        const name = document.getElementById('ec_end_name')
+        endpoint['name'] = name.value
+        const basePath = document.getElementById('choose_way_directory')
+        endpoint['base_path'] = basePath.value
+        const endPath = document.getElementById('input_way_end_directory')
+        endpoint['end_path'] = endPath.value
+        const endTypes = document.getElementById('choose_ec_label_type')
+        endpoint['type'] = endPath.value
+
+        let labels = []
+
+        console.log(endpoint)
+    })
+}
 
 document.addEventListener("DOMContentLoaded", function () {
 
     showVisibleElement('show-visible', 'short_description_content')
     addEndpointTypes()
     getEndpointTypes(loadEndpointTypes)
+    getEndpointTypes(loadEndpointTypesSelect)
+    addLabel()
+    addEndpoint()
 })

@@ -191,3 +191,124 @@
 .pop-up-edit-type input[type="button"]:hover {
     background-color: #005177;
 }
+
+/*Стилі для створення ендпоінта*/
+.endpoint_created {
+    width: 90vw;
+    margin: 2vh auto;
+    padding: 2vh 2vw;
+    background-color: #ffffff;
+    box-shadow: 0 0.5vh 2vh rgba(0, 0, 0, 0.1);
+    border-radius: 1vw;
+    font-size: 1.2vw;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.endpoint_created h3 {
+    font-size: 1.6vw;
+    margin-bottom: 2vh;
+    color: #333;
+    text-align: center;
+}
+
+.ec_way {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2vw;
+    margin-bottom: 2vh;
+}
+
+.way_directory,
+.way_end_directory {
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column;
+}
+
+.way_end_directory label {
+    font-weight: 500;
+    margin-bottom: 1vh;
+    color: #555;
+}
+
+#choose_way_directory,
+#input_way_end_directory {
+    padding: 1vh 1vw;
+    border: 1px solid #ccc;
+    border-radius: 0.5vw;
+    font-size: 1.1vw;
+}
+
+.ec_label {
+    margin-top: 2vh;
+    background-color: #f9f9f9;
+    padding: 2vh 2vw;
+    border-radius: 0.8vw;
+    box-shadow: inset 0 0 0.5vh rgba(0, 0, 0, 0.05);
+}
+
+.ec_label_create {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1vw;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+
+.ec_label_create label {
+    font-size: 1.1vw;
+    color: #444;
+}
+
+.ec_label_create input[type="text"],
+.ec_label_create select {
+    padding: 1vh 1vw;
+    border: 1px solid #bbb;
+    border-radius: 0.5vw;
+    font-size: 1.1vw;
+}
+
+#ec_label_add {
+    padding: 1vh 2vw;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 0.5vw;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#ec_label_add:hover {
+    background-color: #45a049;
+}
+
+.ec_label_preview ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 25vh;
+    overflow-y: auto;
+    border-top: 1px solid #ddd;
+}
+
+.ec_label_preview li {
+    display: flex;
+    gap: 1vw;
+    padding: 1vh 0;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+    font-size: 1vw;
+}
+
+.ec_type {
+    margin-top: 3vh;
+    text-align: center;
+}
+
+#choose_ec_label_type {
+    padding: 1vh 2vw;
+    font-size: 1.2vw;
+    border-radius: 0.5vw;
+    border: 1px solid #aaa;
+    background-color: #fff;
+}

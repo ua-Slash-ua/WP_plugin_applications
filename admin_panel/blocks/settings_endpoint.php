@@ -21,17 +21,44 @@ function render_settings_endpoint()
         
         </div>
         <div class="endpoint_created">
+            <h3>Створіть ендпоінт</h3>
+            <div class="ec_name">
+                <label for="ec_end_name">Введіть назву ендпоінта</label>
+                <input type="text" id="ec_end_name">
+            </div>
             <div class="ec_way">
             
+                <div class="way_directory">
+                    <select  id="choose_way_directory">
+                        <option value="application">application/v1</option>
+                    </select>
+                </div>
+                <div class="way_end_directory">
+                    <label for="input_way_end_directory">Введіть кінцевий шлях ендпоінта</label>
+                    <input type="text" id="input_way_end_directory">
+                </div>
             </div>
             <div class="ec_label">
-            
+                <div class="ec_label_create">
+                    <label for="ec_label_name_label">Назва поля</label>
+                    <input type="text" id="ec_label_name_label">
+                    <select  id="choose_ec_label_create">
+                        <option value="text">text</option>
+                        <option value="file">file</option>
+                    </select>
+                    <label for="ec_label_mandatory_label">Обовязкове поле</label>
+                    <input type="checkbox" id="ec_label_mandatory_label">
+                    <input type="button" id="ec_label_add" value="додати">
+                </div>
+                <div class="ec_label_preview">
+                    <ul>
+                           
+                    </ul>
+                </div>
             </div>
             <div class="ec_type">
-            
-            </div>
-            <div class="ec_default_label">
-            
+                <select  id="choose_ec_label_type">
+                </select>
             </div>
         </div>
         <div class="ed_process_type">
