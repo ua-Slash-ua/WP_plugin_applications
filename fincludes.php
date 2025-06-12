@@ -17,4 +17,6 @@ require_once SL_APPLICATIONS_PATH . 'admin_panel/blocks/settings_endpoint.php';
 require_once SL_APPLICATIONS_PATH . 'admin_panel/main.php';
 require_once SL_APPLICATIONS_PATH . 'admin_panel/settings_main.php';
 
+require_once SL_APPLICATIONS_PATH . 'inc/functions/endpoint_registration.php';
+
 

@@ -190,11 +190,11 @@ function addLabel() {
         const ulLabelContainer = document.querySelector('.ec_label_preview').querySelector('ul')
         const liItem = document.createElement('li')
 
-        const liItemName = document.createElement('li')
+        const liItemName = document.createElement('span')
         liItemName.textContent = labelNameItem.value.trim()
-        const liItemType = document.createElement('li')
+        const liItemType = document.createElement('span')
         liItemType.textContent = labelTypeItem.value
-        const liItemMandat = document.createElement('li')
+        const liItemMandat = document.createElement('span')
         liItemMandat.textContent = labelMandatItem.checked ? 'on' : 'off';
 
         const btnRemove = document.createElement('input')
@@ -216,11 +216,12 @@ function addLabel() {
 }
 
 function addEndpoint() {
-    const btnAdd = document.getElementById('ec_label_add')
+    const btnAdd = document.getElementById('ec_endpoint_add')
     btnAdd.addEventListener('click', function () {
         let endpoint = {
 
         }
+        let labels = []
         const name = document.getElementById('ec_end_name')
         endpoint['name'] = name.value
         const basePath = document.getElementById('choose_way_directory')
@@ -228,14 +229,82 @@ function addEndpoint() {
         const endPath = document.getElementById('input_way_end_directory')
         endpoint['end_path'] = endPath.value
         const endTypes = document.getElementById('choose_ec_label_type')
-        endpoint['type'] = endPath.value
-
-        let labels = []
-
+        endpoint['type'] = endTypes.value
+        const labelsContainer = [...document.querySelector('.ec_label_preview').querySelectorAll('li')]
+        labelsContainer.forEach( liItem=>{
+            let dataLabel = {}
+            dataLabel['name'] = liItem.children[0].textContent
+            dataLabel['type'] = liItem.children[1].textContent
+            dataLabel['isMandat'] = liItem.children[2].textContent
+            labels.push(dataLabel)
+        })
+        endpoint['labels'] = labels
+        console.log('----')
         console.log(endpoint)
+        console.log('----')
+        callWpAjaxFunction('add_endpoint', endpoint)
+            .then(response => {
+                loadEndpoint()
+                alertMessage(`Ендпоінт ${endpoint['name']} додано!!`, 'success');
+            })
+            .catch(error => {
+                alertMessage(`Не вдалося додати ендпоінт ${endpoint['name']} !`, 'error');
+            });
     })
 }
 
+function loadEndpoint(){
+    function displayEndpoints(endpoints) {
+        const endpointList = document.querySelector('.endpoint_list');
+        endpointList.innerHTML = ''; // Очистка перед додаванням нових елементів
+        if (!Array.isArray(endpoints)){
+            endpoints = [endpoints]
+        }
+        endpoints.forEach(endpoint => {
+            const liItem = document.createElement('li');
+            liItem.classList.add('endpoint_item');
+
+            // Назва ендпоінта
+            const nameSpan = document.createElement('h4');
+            nameSpan.textContent = endpoint.name;
+            liItem.appendChild(nameSpan);
+
+            // Шлях ендпоінта
+            const pathSpan = document.createElement('p');
+            pathSpan.innerHTML = `<strong>Шлях:</strong> ${endpoint.base_path}/${endpoint.end_path}`;
+            liItem.appendChild(pathSpan);
+
+            // Тип ендпоінта
+            const typeSpan = document.createElement('p');
+            typeSpan.innerHTML = `<strong>Тип:</strong> ${endpoint.type}`;
+            liItem.appendChild(typeSpan);
+
+            // Поля ендпоінта
+            if (endpoint.labels && endpoint.labels.length > 0) {
+                const labelsList = document.createElement('ul');
+                labelsList.classList.add('labels_list');
+
+                endpoint.labels.forEach(label => {
+                    const labelItem = document.createElement('li');
+                    labelItem.innerHTML = `<span>${label.name}</span> <span class="label-type">${label.type}</span> <span class="mandatory">${label.isMandat === 'on' ? 'Обов’язкове' : 'Не обов’язкове'}</span>`;
+                    labelsList.appendChild(labelItem);
+                });
+
+                liItem.appendChild(labelsList);
+            }
+
+            endpointList.appendChild(liItem);
+        });
+    }
+    callWpAjaxFunction('get_endpoint')
+        .then(response => {
+            console.log(response.data.data)
+            displayEndpoints(response.data.data)
+        })
+        .catch(error => {
+            alertMessage(`Не вдалося отримати ендпоінти!`, 'error');
+        });
+}
 document.addEventListener("DOMContentLoaded", function () {
 
     showVisibleElement('show-visible', 'short_description_content')
@@ -244,4 +313,5 @@ document.addEventListener("DOMContentLoaded", function () {
     getEndpointTypes(loadEndpointTypesSelect)
     addLabel()
     addEndpoint()
+    loadEndpoint()
 })

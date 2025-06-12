@@ -20,47 +20,75 @@ function render_settings_endpoint()
             </div>
         
         </div>
-        <div class="endpoint_created">
+        <div class="endpoint_container">
             <h3>Створіть ендпоінт</h3>
+        
+            <!-- Назва ендпоінта -->
             <div class="ec_name">
-                <label for="ec_end_name">Введіть назву ендпоінта</label>
+                <label for="ec_end_name">Назва ендпоінта:</label>
                 <input type="text" id="ec_end_name">
             </div>
+        
+            <!-- Вибір шляху -->
             <div class="ec_way">
-            
                 <div class="way_directory">
-                    <select  id="choose_way_directory">
-                        <option value="application">application/v1</option>
+                    <label for="choose_way_directory">Основний шлях:</label>
+                    <select id="choose_way_directory">
+                        <option value="application/v1">application/v1</option>
                     </select>
                 </div>
                 <div class="way_end_directory">
-                    <label for="input_way_end_directory">Введіть кінцевий шлях ендпоінта</label>
+                    <label for="input_way_end_directory">Кінцевий шлях:</label>
                     <input type="text" id="input_way_end_directory">
                 </div>
             </div>
+        
+            <!-- Поля ендпоінта -->
             <div class="ec_label">
+                <h4>Додайте поля:</h4>
                 <div class="ec_label_create">
-                    <label for="ec_label_name_label">Назва поля</label>
+                    <label for="ec_label_name_label">Назва поля:</label>
                     <input type="text" id="ec_label_name_label">
-                    <select  id="choose_ec_label_create">
-                        <option value="text">text</option>
-                        <option value="file">file</option>
+        
+                    <label for="choose_ec_label_create">Тип поля:</label>
+                    <select id="choose_ec_label_create">
+                        <option value="text">Текст</option>
+                        <option value="file">Файл</option>
                     </select>
-                    <label for="ec_label_mandatory_label">Обовязкове поле</label>
+        
+                    <label for="ec_label_mandatory_label">Обов’язкове поле:</label>
                     <input type="checkbox" id="ec_label_mandatory_label">
-                    <input type="button" id="ec_label_add" value="додати">
+        
+                    <input type="button" id="ec_label_add" value="Додати">
                 </div>
+        
+                <!-- Перегляд доданих полів -->
                 <div class="ec_label_preview">
                     <ul>
-                           
+        
                     </ul>
                 </div>
             </div>
+        
+            <!-- Тип ендпоінта -->
             <div class="ec_type">
-                <select  id="choose_ec_label_type">
+                <label for="choose_ec_label_type">Тип ендпоінта:</label>
+                <select id="choose_ec_label_type">
+                    <option value="find_nanny">Няня</option>
+                    <option value="test">Тестовий</option>
                 </select>
             </div>
+        
+            <!-- Кнопка створення -->
+            <input type="button" id="ec_endpoint_add" value="Створити ендпоінт">
         </div>
+        <div class="endpoints_review">
+            <h3>Список ендпоінтів</h3>
+            <ul class="endpoint_list">
+                
+            </ul>       
+        </div>
+        
         <div class="ed_process_type">
             <div class="add_types">
                 <label for="ed_at_add_name">Назва *</label>
@@ -75,13 +103,14 @@ function render_settings_endpoint()
                 </ul>
             </div>
         </div>
-    <div class="pop-up-edit-type">
-        <label for="ed_at_edit_name">Назва *</label>
-        <input type="text" id="ed_at_edit_name">
-        <label for="ed_at_edit_slug">Слаг *</label>
-        <input type="text" id="ed_at_edit_slug">
-        <input type="button" id="ed_at_edit_type" value="Змінити">
-    </div>
+        
+        <div class="pop-up-edit-type">
+            <label for="ed_at_edit_name">Назва *</label>
+            <input type="text" id="ed_at_edit_name">
+            <label for="ed_at_edit_slug">Слаг *</label>
+            <input type="text" id="ed_at_edit_slug">
+            <input type="button" id="ed_at_edit_type" value="Змінити">
+        </div>
 
     </div>
 
