@@ -16,7 +16,7 @@ function display_sl_app_alert() {
 
 function enqueue_sl_app_assets($hook) {
     // Масив сторінок, для яких потрібно підключити стилі та скрипти
-    $allowed_pages = ['toplevel_page_sl_app_main', 'applications_page_sl_app_main', 'applications_page_sl_app_settings'];
+    $allowed_pages = ['toplevel_page_sl_app_main', 'applications_page_sl_app_endpoint', 'applications_page_sl_app_settings'];
 
     // Перевіряємо, чи поточний `hook` є однією зі сторінок нашого меню
     if (in_array($hook, $allowed_pages)) {

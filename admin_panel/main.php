@@ -58,7 +58,6 @@ function render_sl_app_main_page()
 
     ?>
     <div class="wrap">
-        <h1>Налаштування теми</h1>
         <form method="post" action="options.php" enctype="multipart/form-data">
             <?php
             settings_fields('sl_app_main_group'); // Виводимо nonce та інші безпечні дані для групи налаштувань

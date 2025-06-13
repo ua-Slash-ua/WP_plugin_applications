@@ -27,16 +27,14 @@ function render_sl_app_settings_page()
             ?>
             <div class="mtab_hero">
                 <ul class="mtab_header">
-                    <li class="mtab_header_item" id="main_data">Ендпоінти</li>
-                    <li class="mtab_header_item tab_active" id="endpoint_data">Ендпоінти</li>
+                    <li class="mtab_header_item tab_active" id="main_data">Основні</li>
                     <li class="mtab_header_item " id="security_data">Безпека</li>
                 </ul>
                 <div class="mtab_content">
-                    <div class="mtab_content_item" id="content_main_data">
-123
+                    <div class="mtab_content_item content_active" id="content_main_data">
+                        Основні налаштування
                     </div>
                     <?php
-                     render_settings_endpoint();
                      render_settings_security();
 
                     ?>

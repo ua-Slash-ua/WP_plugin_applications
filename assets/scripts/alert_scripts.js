@@ -65,6 +65,9 @@ function alertMessage(msg, sts = 'info', time = 5) {
 }
 function actionTab(tabs) {
     tabs.forEach(tabName => {
+        if (!document.getElementById(tabName)){
+            return;
+        }
         document.getElementById(tabName).addEventListener('click', function () {
             document.querySelectorAll('.mtab_header_item').forEach(navEl => {
                 navEl.classList.remove('tab_active')
@@ -77,8 +80,17 @@ function actionTab(tabs) {
         })
     })
 }
-
+function isValidSlug(slug,symbol = /^[a-zA-Z0-9_-]+$/) {
+    return symbol.test(slug);
+}
 document.addEventListener("DOMContentLoaded", function () {
-    let tabs = ['main_data','endpoint_data', 'security_data']
+    let tabs = [
+        'main_data',
+        'endpoint_data',
+        'security_data',
+        'endpoint_main',
+        'endpoint_label',
+        'endpoint_type',
+    ]
     actionTab(tabs)
 })

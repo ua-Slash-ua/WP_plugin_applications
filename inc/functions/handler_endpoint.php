@@ -33,7 +33,6 @@ add_action('wp_ajax_nopriv_get_endpoint_type', 'get_endpoint_type');
 
 function remove_endpoint_type() {
     if (!isset($_POST['data'])) {
-        error_log('remove_endpoint_type: data not set');
         wp_send_json_error(['message' => 'Дані не передані']);
     }
     $raw_data = $_POST['data'];
@@ -55,7 +54,6 @@ add_action('wp_ajax_nopriv_remove_endpoint_type', 'remove_endpoint_type');
 
 function edit_endpoint_type() {
     if (!isset($_POST['data'])) {
-        error_log('remove_endpoint_type: data not set');
         wp_send_json_error(['message' => 'Дані не передані']);
     }
     $raw_data = $_POST['data'];
@@ -79,7 +77,6 @@ add_action('wp_ajax_nopriv_edit_endpoint_type', 'edit_endpoint_type');
 
 function add_endpoint() {
     if (!isset($_POST['data'])) {
-        error_log('remove_endpoint_type: data not set');
         wp_send_json_error(['message' => 'Дані не передані']);
     }
     $raw_data = $_POST['data'];
@@ -102,7 +99,6 @@ add_action('wp_ajax_nopriv_add_endpoint', 'add_endpoint');
 function get_endpoint() {
 
     $status = sl_get_option('endpoint');
-    error_log(print_r($status, true));
     if (!$status){
         wp_send_json_error(['message' => 'Едпоінти НЕ отримано!']);
     }else{
