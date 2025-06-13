@@ -100,7 +100,6 @@ function enqueue_sl_app_endpoint_style_and_script($hook)
         $endpoint_scripts = array(
             ['sl_app_endpoint_types-script','assets/scripts/ap_endpoint_types.js', [], '1.0.0'],
             ['sl_app_endpoint_labels-style','assets/styles/ap_endpoint_labels.css', [], '1.0.0'],
-            ['sl_app_settings-ajax-script','assets/scripts/ajax.js', ['jquery'], '1.0.0'],
         );
 
         // JS
@@ -114,9 +113,7 @@ function enqueue_sl_app_endpoint_style_and_script($hook)
         }
 
 
-        wp_localize_script('sl_app_settings-ajax-script', 'ajax_object', array(
-            'ajaxurl' => admin_url('admin-ajax.php'),
-        ));
+
     }
 }
 add_action('admin_enqueue_scripts', 'enqueue_sl_app_endpoint_style_and_script');

@@ -122,43 +122,43 @@ class ApplicationOptionManager
         // Повертаємо true, якщо хоча б один рядок був змінений
         return $result !== false && $result > 0;
     }
-    public function findAppOption($search, string $key = null)
+    public function findAppOption($value, ?string $key = null): bool|array
     {
         global $wpdb;
-        $table = $wpdb->prefix . 'sl_app_options';
+        $table = $this->table;
 
-        // Нормалізуємо пошукові значення до масиву
-        $searchValues = is_array($search) ? $search : [$search];
+        // Переконайся, що $value — масив
+        $values = is_array($value) ? $value : [$value];
 
-        // Отримуємо всі записи або лише з певним ключем
-        $query = "SELECT * FROM {$table}";
-        $params = [];
+        // Базовий SQL
+        $sql = "SELECT * FROM {$table}";
+        $where = [];
 
         if ($key !== null) {
-            $query .= " WHERE options_key = %s";
-            $params[] = $key;
+            $where[] = $wpdb->prepare("options_key = %s", $key);
         }
 
-        $results = $wpdb->get_results($wpdb->prepare($query, ...$params));
+        if (!empty($where)) {
+            $sql .= " WHERE " . implode(' AND ', $where);
+        }
+
+        $results = $wpdb->get_results($sql);
 
         $matched = [];
 
         foreach ($results as $row) {
-            $value = $row->options_value;
+            $decoded = json_decode($row->options_value, true);
 
-            // Можливо це JSON
-            $decoded = json_decode($value, true);
-
-            foreach ($searchValues as $term) {
-                if (is_array($decoded)) {
-                    // Пошук по масиву JSON
-                    if ($this->deepSearchInArray($decoded, $term)) {
+            if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                foreach ($values as $val) {
+                    if (in_array($val, $decoded, true)) {
                         $matched[] = $row;
                         break;
                     }
-                } else {
-                    // Пошук у звичайному текстовому значенні
-                    if (stripos($value, (string)$term) !== false) {
+                }
+            } else {
+                foreach ($values as $val) {
+                    if (strval($row->options_value) === strval($val)) {
                         $matched[] = $row;
                         break;
                     }
@@ -166,8 +166,9 @@ class ApplicationOptionManager
             }
         }
 
-        return $matched;
+        return !empty($matched) ? $matched : false;
     }
+
     private function deepSearchInArray(array $array, $needle): bool
     {
         foreach ($array as $value) {

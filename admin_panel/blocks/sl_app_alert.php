@@ -22,6 +22,17 @@ function enqueue_sl_app_assets($hook) {
     if (in_array($hook, $allowed_pages)) {
         wp_enqueue_style('sl_app_alert-style', SL_APPLICATIONS_URL . '/assets/styles/alert_styles.css', [], '1.0.0');
         wp_enqueue_script('sl_app_alert-script', SL_APPLICATIONS_URL . '/assets/scripts/alert_scripts.js', ['jquery'], '1.0.0', true);
+        // Підключаємо JS скрипт
+        wp_enqueue_script(
+            'sl_app_settings-ajax-script', // Унікальний ID для скрипту
+            SL_APPLICATIONS_URL . '/assets/scripts/ajax.js', // Шлях до файлу скрипту
+            ['jquery'], // Залежність від jQuery
+            '1.0.0', // Версія скрипту
+            true // Підключаємо скрипт внизу сторінки (після контенту)
+        );
+        wp_localize_script('sl_app_settings-ajax-script', 'ajax_object', array(
+            'ajaxurl' => admin_url('admin-ajax.php'),
+        ));
 }
 }
 add_action('admin_enqueue_scripts', 'enqueue_sl_app_assets');

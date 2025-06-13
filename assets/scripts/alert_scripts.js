@@ -84,23 +84,26 @@ function isValidSlug(slug,symbol = /^[a-zA-Z0-9_-]+$/) {
     return symbol.test(slug);
 }
 
-function checkData(data,key = null){
-    if (!Array.isArray(data)){
+async function checkData(data, key = null) {
+    if (!Array.isArray(data)) {
         return false;
     }
-    let dataSend = {
-        'key':key,
-        'value':data
-    }
-    callWpAjaxFunction('finder_options', dataSend)
-        .then(response => {
-            return true;
-        })
-        .catch(error => {
-            return false;
-        });
 
+    const dataSend = {
+        key: key,
+        value: data
+    };
+
+    try {
+        const response = await callWpAjaxFunction('finder_options', dataSend);
+        // console.log('response:', response);
+        return response.success === true;
+    } catch (error) {
+        // console.error('error:', error);
+        return false;
+    }
 }
+
 document.addEventListener("DOMContentLoaded", function () {
     let tabs = [
         'main_data',

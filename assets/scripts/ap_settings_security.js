@@ -1,6 +1,3 @@
-
-
-
 function generateSecure(length = 32) {
     const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let result = '';
@@ -35,16 +32,18 @@ function generateLogAndPass() {
 function addLogAndPass() {
     let data = {}
     const btnAdd = document.querySelector(`#ba_add_add`)
-    btnAdd.addEventListener('click', function () {
+    btnAdd.addEventListener('click', async function () {
 
         const log = document.getElementById('ba_add_login').value.trim()
         const pass = document.getElementById('ba_add_password').value.trim()
-        if (!log || !pass || !pass.startsWith('sl_p') || !log.startsWith('sl_l') || log.length < 32 || pass.length < 32){
-            alertMessage('Некоректні дані для BASE AUTH, подивіться інструкцію вище!', 'error')
+        const isValid = await checkData([log, pass], 'base_auth');
+
+        if (!log || !pass || !pass.startsWith('sl_p') || !log.startsWith('sl_l') || log.length < 32 || pass.length < 32 || !isValid) {
+            alertMessage('Некоректні дані для BASE AUTH, подивіться інструкцію вище!', 'error');
             return;
         }
 
-            data['login'] = log
+        data['login'] = log
         data['pass'] = pass
         callWpAjaxFunction('add_log_and_pass', data)
             .then(response => {

@@ -1,9 +1,10 @@
 function addEndpointTypes() {
     const btnEl = document.querySelector('#ed_at_add_type')
-    btnEl.addEventListener('click', function () {
+    btnEl.addEventListener('click', async function () {
         let name = document.querySelector('#ed_at_add_name')
         let slug = document.querySelector('#ed_at_add_slug')
-        if (!name || !slug || !isValidSlug(slug.value.trim()) || !checkData([name,slug],'endpoint_type')) {
+        const isValid = await checkData([name.value.trim(), slug.value.trim()], 'endpoint_type');
+        if (!name || !slug || !isValidSlug(slug.value.trim()) || !isValid) {
             alertMessage('Некоректно введені дані для type ендпоінта!', 'error')
         } else {
             let data = {

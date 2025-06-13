@@ -113,8 +113,9 @@ add_action('wp_ajax_nopriv_get_endpoint', 'get_endpoint');
 
 function finder_options() {
     $data = json_decode(stripslashes($_POST['data']));
-    $key = $data['key'] ?? null;
-    $value = $data['value'];
+    error_log(print_r($data, true));
+    $key = $data->key ?? null;
+    $value = $data->value;
 
     $status = sl_find_option($value,$key);
     if (!$status){

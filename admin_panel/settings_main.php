@@ -58,13 +58,6 @@ function enqueue_sl_app_settings_style_and_script($hook)
             [], // Залежності
             '1.0.0' // Версія стилю
         );
-        // Підключаємо CSS стилі
-        wp_enqueue_style(
-            'sl_app_settings_endpoint-style', // Унікальний ID для стилю
-            SL_APPLICATIONS_URL . '/assets/styles/ap_settings_endpoint.css', // Шлях до файлу стилю
-            [], // Залежності
-            '1.0.0' // Версія стилю
-        );
 
         // Підключаємо JS скрипт
         wp_enqueue_script(
@@ -74,30 +67,7 @@ function enqueue_sl_app_settings_style_and_script($hook)
             '1.0.0', // Версія скрипту
             true // Підключаємо скрипт внизу сторінки (після контенту)
         );
-        // Підключаємо JS скрипт
-        wp_enqueue_script(
-            'sl_app_settings_endpoint-script', // Унікальний ID для скрипту
-            SL_APPLICATIONS_URL . '/assets/scripts/ap_settings_endpoint.js', // Шлях до файлу скрипту
-            ['jquery'], // Залежність від jQuery
-            '1.0.0', // Версія скрипту
-            true // Підключаємо скрипт внизу сторінки (після контенту)
-        );
 
-
-
-        // Підключаємо JS скрипт
-        wp_enqueue_script(
-            'sl_app_settings-ajax-script', // Унікальний ID для скрипту
-            SL_APPLICATIONS_URL . '/assets/scripts/ajax.js', // Шлях до файлу скрипту
-            ['jquery'], // Залежність від jQuery
-            '1.0.0', // Версія скрипту
-            true // Підключаємо скрипт внизу сторінки (після контенту)
-        );
-
-        function enqueue_ajax_script() {
-            wp_localize_script('sl_app_settings-ajax-script', 'ajax_object', array('ajaxurl' => admin_url('admin-ajax.php')));
-        }
-        add_action('wp_enqueue_scripts', 'enqueue_ajax_script');
 
     }
 }
