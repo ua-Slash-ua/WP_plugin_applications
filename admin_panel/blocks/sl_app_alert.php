@@ -1,6 +1,7 @@
 <?php
 
-function display_sl_app_alert() {
+function display_sl_app_alert()
+{
     echo '
     <div class="message_alert">
         <h3>Application повідомляє</h3>
@@ -14,7 +15,8 @@ function display_sl_app_alert() {
 }
 
 
-function enqueue_sl_app_assets($hook) {
+function enqueue_sl_app_assets($hook)
+{
     // Масив сторінок, для яких потрібно підключити стилі та скрипти
     $allowed_pages = ['toplevel_page_sl_app_main', 'applications_page_sl_app_endpoint', 'applications_page_sl_app_settings'];
 
@@ -30,9 +32,21 @@ function enqueue_sl_app_assets($hook) {
             '1.0.0', // Версія скрипту
             true // Підключаємо скрипт внизу сторінки (після контенту)
         );
-        wp_localize_script('sl_app_settings-ajax-script', 'ajax_object', array(
-            'ajaxurl' => admin_url('admin-ajax.php'),
-        ));
+        $script_handles = [
+            'sl_app_endpoint_types-script',
+            'sl_app_endpoint_labels-script',
+            'sl_app_alert-script',
+            'sl_app_settings_security-script',
+        ]; // усі зареєстровані хендли твоїх скриптів
+
+        foreach ($script_handles as $handle) {
+            wp_localize_script('sl_app_settings-ajax-script', 'ajax_object', array(
+                'ajaxurl' => site_url('/wp-admin/admin-ajax.php'),
+            ));
+
+        }
+
+    }
 }
-}
+
 add_action('admin_enqueue_scripts', 'enqueue_sl_app_assets');

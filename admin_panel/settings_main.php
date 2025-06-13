@@ -61,7 +61,7 @@ function enqueue_sl_app_settings_style_and_script($hook)
 
         // Підключаємо JS скрипт
         wp_enqueue_script(
-            'sl_app_settings-script', // Унікальний ID для скрипту
+            'sl_app_settings_security-script', // Унікальний ID для скрипту
             SL_APPLICATIONS_URL . '/assets/scripts/ap_settings_security.js', // Шлях до файлу скрипту
             ['jquery'], // Залежність від jQuery
             '1.0.0', // Версія скрипту

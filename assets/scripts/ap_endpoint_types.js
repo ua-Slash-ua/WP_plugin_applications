@@ -6,37 +6,20 @@ function addEndpointTypes() {
         const isValid = await checkData([name.value.trim(), slug.value.trim()], 'endpoint_type');
         if (!name || !slug || !isValidSlug(slug.value.trim()) || !isValid) {
             alertMessage('Некоректно введені дані для type ендпоінта!', 'error')
+            return;
         } else {
             let data = {
                 'name': name.value.trim(),
                 'slug': slug.value.trim()
             }
-
-            callWpAjaxFunction('add_endpoint_type', data)
-                .then(response => {
-                    name.value = ''
-                    slug.value = ''
-                    getEndpointTypes(loadEndpointTypes)
-                    alertMessage('Тип заявки додано!', 'success')
-                })
-                .catch(error => {
-                    alertMessage('Не вдалося додати тип заявки!', 'error')
-                });
+            await handleOption('sl_add_option', data, 'endpoint_type')
+            await loadEndpointTypes( await handleOption('sl_get_option',[],'endpoint_type'))
         }
 
 
     })
 }
 
-function getEndpointTypes(func) {
-    callWpAjaxFunction('get_endpoint_type')
-        .then(response => {
-            func(response.data.data)
-        })
-        .catch(error => {
-            alertMessage('Не вдалося отримати типи заявок!', 'error')
-        });
-}
 
 function loadEndpointTypes(data) {
     try {
@@ -83,20 +66,15 @@ function loadEndpointTypes(data) {
                 popUp.classList.add('active');
 
                 const btnEditSend = document.querySelector('#ed_at_edit_type');
-                btnEditSend.addEventListener('click', function () {
+                btnEditSend.addEventListener('click', async function () {
                     if (!nameEdit.value.trim() || !slugEdit.value.trim() || !isValidSlug(slugEdit.value.trim())) {
                         alertMessage('Некоректно введені дані для type ендпоінта!', 'error');
                     } else {
                         new_data['name'] = nameEdit.value.trim();
                         new_data['slug'] = slugEdit.value.trim();
-                        callWpAjaxFunction('edit_endpoint_type', [type, new_data])
-                            .then(response => {
-                                getEndpointTypes(loadEndpointTypes);
-                                alertMessage(`Тип заявки ${type['name']} <${type['slug']}> успішно змінено!`, 'success');
-                            })
-                            .catch(error => {
-                                alertMessage(`Не вдалося змінити ${type['name']} <${type['slug']}> тип заявки!`, 'error');
-                            });
+                        await loadEndpointTypes( await handleOption('sl_edit_option', [type, new_data], 'endpoint_type'))
+                        await loadEndpointTypes( await handleOption('sl_get_option', [], 'endpoint_type'))
+
                         popUp.classList.remove('active');
                     }
                 });
@@ -105,16 +83,9 @@ function loadEndpointTypes(data) {
             const btnRemove = document.createElement('input');
             btnRemove.type = 'button';
             btnRemove.value = 'X';
-            btnRemove.addEventListener('click', function () {
-                callWpAjaxFunction('remove_endpoint_type', type)
-                    .then(response => {
-                        console.log(response);
-                        alertMessage(`Тип заявки ${type['name']} <${type['slug']}> успішно видалено!`, 'success');
-                        getEndpointTypes(loadEndpointTypes); // Оновлення після видалення
-                    })
-                    .catch(error => {
-                        alertMessage(`Не вдалося видалити ${type['name']} <${type['slug']}> тип заявки!`, 'error');
-                    });
+            btnRemove.addEventListener('click', async function () {
+                await handleOption('sl_remove_option', type, 'endpoint_type')
+                await loadEndpointTypes( await handleOption('sl_get_option', [], 'endpoint_type'))
             });
 
             divAction.appendChild(btnEdit);
@@ -129,8 +100,8 @@ function loadEndpointTypes(data) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     addEndpointTypes()
-    getEndpointTypes(loadEndpointTypes)
+    await loadEndpointTypes( await handleOption('sl_get_option',[],'endpoint_type'))
 
 })

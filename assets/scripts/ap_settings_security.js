@@ -45,73 +45,44 @@ function addLogAndPass() {
 
         data['login'] = log
         data['pass'] = pass
-        callWpAjaxFunction('add_log_and_pass', data)
-            .then(response => {
-                loadLogAndPass(response.data.data)
-                alertMessage('Дані для аутентифікації додано!', 'success')
-                document.getElementById('ba_add_login').value = ''
-                document.getElementById('ba_add_password').value = ''
-            })
-            .catch(error => {
-                alertMessage('Дані для аутентифікації не вдалося додати!', 'error')
-            });
+        await handleOption('sl_add_option', data, 'base_auth')
+        document.getElementById('ba_add_login').value = ''
+        document.getElementById('ba_add_password').value = ''
     })
 
 
 }
+async function loadLogAndPass(data) {
+    const previewContainer = document.querySelector('.base_auth_preview')
+    const pcContent = previewContainer.querySelector('ul')
+    pcContent.innerHTML = ''
+    data.forEach(logAndPass => {
+        const liItem = document.createElement('li')
 
-function loadLogAndPass(data) {
-    function loadContainer(data) {
-        const previewContainer = document.querySelector('.base_auth_preview')
-        const pcContent = previewContainer.querySelector('ul')
-        pcContent.innerHTML = ''
-        data.forEach(logAndPass => {
-            const liItem = document.createElement('li')
-
-            const spanLog = document.createElement('span')
-            spanLog.textContent = logAndPass['login']
-            const spanPass = document.createElement('span')
-            spanPass.textContent = logAndPass['pass']
-            const inputRemove = document.createElement('input')
-            inputRemove.type = 'button'
-            inputRemove.value = 'X'
-            inputRemove.addEventListener('click', function () {
-
-                callWpAjaxFunction('remove_log_and_pass', logAndPass)
-                    .then(response => {
-                        alertMessage('Дані для аутентифікації видалені', 'success')
-                        this.parentElement.remove()
-                    })
-                    .catch(error => {
-                        alertMessage('Не вдалося видалити дані для аутентифікації!', 'error')
-                    });
-
-            })
-            liItem.appendChild(spanLog)
-            liItem.appendChild(spanPass)
-            liItem.appendChild(inputRemove)
-            pcContent.appendChild(liItem)
+        const spanLog = document.createElement('span')
+        spanLog.textContent = logAndPass['login']
+        const spanPass = document.createElement('span')
+        spanPass.textContent = logAndPass['pass']
+        const inputRemove = document.createElement('input')
+        inputRemove.type = 'button'
+        inputRemove.value = 'X'
+        inputRemove.addEventListener('click', async function () {
+            await handleOption('sl_remove_option', logAndPass, 'base_auth')
+            await loadLogAndPass(await handleOption('sl_get_option', [], 'base_auth'))
         })
-        previewContainer.appendChild(pcContent)
+        liItem.appendChild(spanLog)
+        liItem.appendChild(spanPass)
+        liItem.appendChild(inputRemove)
+        pcContent.appendChild(liItem)
+    })
+    previewContainer.appendChild(pcContent)
 
-    }
-
-    if (!data) {
-        callWpAjaxFunction('get_log_and_pass', [])
-            .then(response => {
-                loadContainer(response.data.data)
-            })
-            .catch(error => {
-                alertMessage('Не вдалося отримати дані для аутентифікації!', 'error')
-            });
-    } else {
-        loadContainer(data)
-    }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+
+document.addEventListener("DOMContentLoaded", async function () {
 
     generateLogAndPass()
     addLogAndPass()
-    loadLogAndPass()
+    await loadLogAndPass(await handleOption('sl_get_option', [], 'base_auth'))
 })

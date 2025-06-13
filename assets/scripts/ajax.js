@@ -6,7 +6,7 @@
  */
 async function callWpAjaxFunction(action, data = {}) {
     try {
-        const response = await fetch(ajaxurl, {
+        const response = await fetch(ajax_object.ajaxurl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',

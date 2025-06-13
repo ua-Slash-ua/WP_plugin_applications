@@ -99,7 +99,7 @@ function enqueue_sl_app_endpoint_style_and_script($hook)
         }
         $endpoint_scripts = array(
             ['sl_app_endpoint_types-script','assets/scripts/ap_endpoint_types.js', [], '1.0.0'],
-            ['sl_app_endpoint_labels-style','assets/styles/ap_endpoint_labels.css', [], '1.0.0'],
+            ['sl_app_endpoint_labels-script','assets/styles/ap_endpoint_labels.js', [], '1.0.0'],
         );
 
         // JS

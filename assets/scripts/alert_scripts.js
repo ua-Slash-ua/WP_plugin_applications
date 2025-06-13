@@ -103,8 +103,34 @@ async function checkData(data, key = null) {
         return false;
     }
 }
+async function handleOption(func, data, key) {
+    // console.log(func)
+    // console.log(data)
+    // console.log(key)
+    if (!Array.isArray(data) && typeof data !== 'object') { // підтримати об'єкт і масив
+        return false;
+    }
+
+    const dataSend = {
+        key: key,
+        value: data
+    };
+
+    try {
+        const response = await callWpAjaxFunction(func, dataSend);
+        alertMessage(response.data.message, "success");
+        return response.data?.data || true;  // повернути результат або true якщо немає data
+    }  catch (error) {
+        alertMessage(error.message || "Невідома помилка", "error");
+        console.error("handleOption Error:", error);
+        return null;
+    }
+}
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
+
     let tabs = [
         'main_data',
         'endpoint_data',
