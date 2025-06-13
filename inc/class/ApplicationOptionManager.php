@@ -122,4 +122,64 @@ class ApplicationOptionManager
         // Повертаємо true, якщо хоча б один рядок був змінений
         return $result !== false && $result > 0;
     }
+    public function findAppOption($search, string $key = null)
+    {
+        global $wpdb;
+        $table = $wpdb->prefix . 'sl_app_options';
+
+        // Нормалізуємо пошукові значення до масиву
+        $searchValues = is_array($search) ? $search : [$search];
+
+        // Отримуємо всі записи або лише з певним ключем
+        $query = "SELECT * FROM {$table}";
+        $params = [];
+
+        if ($key !== null) {
+            $query .= " WHERE options_key = %s";
+            $params[] = $key;
+        }
+
+        $results = $wpdb->get_results($wpdb->prepare($query, ...$params));
+
+        $matched = [];
+
+        foreach ($results as $row) {
+            $value = $row->options_value;
+
+            // Можливо це JSON
+            $decoded = json_decode($value, true);
+
+            foreach ($searchValues as $term) {
+                if (is_array($decoded)) {
+                    // Пошук по масиву JSON
+                    if ($this->deepSearchInArray($decoded, $term)) {
+                        $matched[] = $row;
+                        break;
+                    }
+                } else {
+                    // Пошук у звичайному текстовому значенні
+                    if (stripos($value, (string)$term) !== false) {
+                        $matched[] = $row;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return $matched;
+    }
+    private function deepSearchInArray(array $array, $needle): bool
+    {
+        foreach ($array as $value) {
+            if (is_array($value)) {
+                if ($this->deepSearchInArray($value, $needle)) {
+                    return true;
+                }
+            } elseif (stripos((string)$value, (string)$needle) !== false) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

@@ -83,6 +83,24 @@ function actionTab(tabs) {
 function isValidSlug(slug,symbol = /^[a-zA-Z0-9_-]+$/) {
     return symbol.test(slug);
 }
+
+function checkData(data,key = null){
+    if (!Array.isArray(data)){
+        return false;
+    }
+    let dataSend = {
+        'key':key,
+        'value':data
+    }
+    callWpAjaxFunction('finder_options', dataSend)
+        .then(response => {
+            return true;
+        })
+        .catch(error => {
+            return false;
+        });
+
+}
 document.addEventListener("DOMContentLoaded", function () {
     let tabs = [
         'main_data',

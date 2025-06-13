@@ -3,7 +3,7 @@ function addEndpointTypes() {
     btnEl.addEventListener('click', function () {
         let name = document.querySelector('#ed_at_add_name')
         let slug = document.querySelector('#ed_at_add_slug')
-        if (!name || !slug || !isValidSlug(slug.value.trim())) {
+        if (!name || !slug || !isValidSlug(slug.value.trim()) || !checkData([name,slug],'endpoint_type')) {
             alertMessage('Некоректно введені дані для type ендпоінта!', 'error')
         } else {
             let data = {

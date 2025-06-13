@@ -111,4 +111,21 @@ add_action('wp_ajax_get_endpoint', 'get_endpoint');
 add_action('wp_ajax_nopriv_get_endpoint', 'get_endpoint');
 
 
+function finder_options() {
+    $data = json_decode(stripslashes($_POST['data']));
+    $key = $data['key'] ?? null;
+    $value = $data['value'];
+
+    $status = sl_find_option($value,$key);
+    if (!$status){
+        wp_send_json_success(['message' => 'Даних не знайдено!']);
+    }else{
+        wp_send_json_error(['message' => 'Такі дані уже існують!', 'data' => $status]);
+    }
+
+}
+
+add_action('wp_ajax_finder_options', 'finder_options');
+add_action('wp_ajax_nopriv_finder_options', 'finder_options');
+
 
