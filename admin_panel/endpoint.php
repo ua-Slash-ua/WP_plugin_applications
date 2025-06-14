@@ -37,10 +37,49 @@ function render_sl_app_endpoint_page()
                     <div class="mtab_content_item content_active" id="content_endpoint_label">
                         <div class="ed_process_label">
                             <div class="add_labels">
+                                <div class="choose_label_type_container">
+                                    <label for="choose_label_type">Тип мітки:</label>
+                                    <select id="choose_label_type">
+                                        <option value="l_text">Текст</option>
+                                        <option value="l_file">Файл</option>
+                                    </select>
+                                </div>
 
+                                <div class="l_text_container">
+                                    <label for="l_text_name">Введіть назву</label>
+                                    <input type="text" id="l_text_name" placeholder="Назва текстової мітки">
+                                    <label for="l_text_slug">Введіть слаг</label>
+                                    <input type="text" id="l_text_slug" placeholder="slug-текст">
+                                </div>
+
+                                <div class="l_file_container" style="display: none">
+                                    <label for="l_file_name">Введіть назву</label>
+                                    <input type="text" id="l_file_name" placeholder="Назва файлу">
+                                    <label for="l_file_slug">Введіть слаг</label>
+                                    <input type="text" id="l_file_slug" placeholder="slug-файлу">
+
+                                    <label for="choose_file_type">Тип файлу:</label>
+                                    <select id="choose_file_type" multiple>
+                                        <option value="l_file_extend_png">PNG</option>
+                                        <option value="l_file_extend_jpg">JPG</option>
+                                        <option value="l_file_extend_pdf">PDF</option>
+                                        <option value="l_file_extend_docx">DOCX</option>
+                                        <option value="l_file_extend_txt">TXT</option>
+                                    </select>
+
+                                    <label for="file_size_range">Максимальний розмір (до 10 МБ):</label>
+                                    <input type="range" id="file_size_range" min="0" max="10" value="1" step="0.1" oninput="document.getElementById('file_size_value').textContent = this.value + ' МБ'">
+                                    <span id="file_size_value">1 МБ</span>
+                                </div>
+                                <div class="label_add_action">
+                                    <input type="button" value="Add" id="l_action_add">
+                                </div>
                             </div>
-                            <div class="preview_labels">
 
+                            <div class="preview_labels">
+                                <ul class="labels_container">
+
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -99,7 +138,7 @@ function enqueue_sl_app_endpoint_style_and_script($hook)
         }
         $endpoint_scripts = array(
             ['sl_app_endpoint_types-script','assets/scripts/ap_endpoint_types.js', [], '1.0.0'],
-            ['sl_app_endpoint_labels-script','assets/styles/ap_endpoint_labels.js', [], '1.0.0'],
+            ['sl_app_endpoint_labels-script','assets/scripts/ap_endpoint_labels.js', [], '1.0.0'],
         );
 
         // JS

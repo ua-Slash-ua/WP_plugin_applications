@@ -1,0 +1,84 @@
+/*Add endpoint*/
+.add_labels {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 12px;
+    background: #f9f9f9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.add_labels label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 600;
+    color: #333;
+}
+
+.add_labels input[type="text"],
+.add_labels select,
+.add_labels input[type="range"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.add_labels input[type="range"] {
+    padding: 0;
+    height: 30px;
+}
+
+#file_size_value {
+    display: inline-block;
+    margin-left: 10px;
+    font-weight: bold;
+    color: #007acc;
+}
+
+.choose_label_type_container,
+.l_text_container,
+.l_file_container {
+    margin-bottom: 20px;
+}
+
+.label_add_action {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.label_add_action input[type="button"] {
+    background-color: #007acc;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 122, 204, 0.2);
+}
+
+.label_add_action input[type="button"]:hover {
+    background-color: #005fa3;
+    transform: translateY(-2px);
+}
+
+.label_add_action input[type="button"]:active {
+    background-color: #004c82;
+    transform: scale(0.98);
+}
+#choose_file_type {
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    background-color: #fff;
+    box-sizing: border-box;
+}
