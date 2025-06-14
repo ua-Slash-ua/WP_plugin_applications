@@ -119,8 +119,12 @@ async function handleOption(func, data, key) {
 
     try {
         const response = await callWpAjaxFunction(func, dataSend);
-        alertMessage(response.data.message, "success");
+        if (!func.startsWith('sl_get_')){
+            alertMessage(response.data.message, "success");
+
+        }
         return response.data?.data || true;  // повернути результат або true якщо немає data
+
     }  catch (error) {
         alertMessage(error.message || "Невідома помилка", "error");
         console.error("handleOption Error:", error);

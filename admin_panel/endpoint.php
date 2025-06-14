@@ -26,15 +26,49 @@ function render_sl_app_endpoint_page()
             ?>
             <div class="mtab_hero">
                 <ul class="mtab_header">
-                    <li class="mtab_header_item" id="endpoint_main">Ендпоінти</li>
-                    <li class="mtab_header_item tab_active" id="endpoint_label">Поля</li>
+                    <li class="mtab_header_item tab_active" id="endpoint_main">Ендпоінти</li>
+                    <li class="mtab_header_item " id="endpoint_label">Поля</li>
                     <li class="mtab_header_item " id="endpoint_type">Типи</li>
                 </ul>
                 <div class="mtab_content">
-                    <div class="mtab_content_item" id="content_endpoint_main">
-                        111111111111
+                    <div class="mtab_content_item content_active" id="content_endpoint_main">
+                        <div class="endpoint_main_hero">
+
+
+                            <div class="ep_add_container">
+                                <div class="ep_add_text_data_container">
+                                    <label for="ep_add_text_name">Endpoint name</label>
+                                    <input type="text" id="ep_add_text_name">
+
+                                </div>
+                                <div class="ep_add_path_container">
+                                    <label for="ep_add_path_end">End Path</label>
+                                    <input type="text" id="ep_add_path_end">
+                                </div>
+                                <div class="ep_add_type_container">
+                                    <label for="ep_add_type">Choose type</label>
+                                    <select id="ep_add_type">
+
+                                    </select>
+                                </div>
+                                <div class="ep_add_label_container">
+                                    <label for="ep_add_labels">Choose labels</label>
+                                    <select id="ep_add_labels" multiple>
+
+                                    </select>
+                                </div>
+
+                                <div class="ep_add_action_container">
+                                    <input type="button" value="Add Endpoint" id="ep_endpoint_btn_add">
+                                </div>
+
+                            </div>
+                            <div class="ep_review_container">
+
+                            </div>
+                        </div>
                     </div>
-                    <div class="mtab_content_item content_active" id="content_endpoint_label">
+                    <div class="mtab_content_item " id="content_endpoint_label">
                         <div class="ed_process_label">
                             <div class="add_labels">
                                 <div class="choose_label_type_container">
@@ -68,7 +102,8 @@ function render_sl_app_endpoint_page()
                                     </select>
 
                                     <label for="file_size_range">Максимальний розмір (до 10 МБ):</label>
-                                    <input type="range" id="file_size_range" min="0" max="10" value="1" step="0.1" oninput="document.getElementById('file_size_value').textContent = this.value + ' МБ'">
+                                    <input type="range" id="file_size_range" min="0" max="10" value="1" step="0.1"
+                                           oninput="document.getElementById('file_size_value').textContent = this.value + ' МБ'">
                                     <span id="file_size_value">1 МБ</span>
                                 </div>
                                 <div class="label_add_action">
@@ -125,8 +160,9 @@ function enqueue_sl_app_endpoint_style_and_script($hook)
 {
     if ($hook === 'applications_page_sl_app_endpoint') {
         $endpoint_styles = array(
-            ['sl_app_endpoint_types-style','assets/styles/ap_endpoint_types.css', [], '1.0.0'],
-            ['sl_app_endpoint_labels-style','assets/styles/ap_endpoint_labels.css', [], '1.0.0'],
+            ['sl_app_endpoint_types-style', 'assets/styles/ap_endpoint_types.css', [], '1.0.0'],
+            ['sl_app_endpoint_labels-style', 'assets/styles/ap_endpoint_labels.css', [], '1.0.0'],
+            ['sl_app_endpoint_endpoints-style', 'assets/styles/ap_endpoint_endpoints.css', [], '1.0.0'],
         );
         // CSS
         foreach ($endpoint_styles as $endpoint_style) {
@@ -138,8 +174,9 @@ function enqueue_sl_app_endpoint_style_and_script($hook)
             );
         }
         $endpoint_scripts = array(
-            ['sl_app_endpoint_types-script','assets/scripts/ap_endpoint_types.js', [], '1.0.0'],
-            ['sl_app_endpoint_labels-script','assets/scripts/ap_endpoint_labels.js', [], '1.0.0'],
+            ['sl_app_endpoint_types-script', 'assets/scripts/ap_endpoint_types.js', [], '1.0.0'],
+            ['sl_app_endpoint_labels-script', 'assets/scripts/ap_endpoint_labels.js', [], '1.0.0'],
+            ['sl_app_endpoint_endpoints-script', 'assets/scripts/ap_endpoint_endpoints.js', [], '1.0.0'],
         );
 
         // JS
@@ -153,8 +190,8 @@ function enqueue_sl_app_endpoint_style_and_script($hook)
         }
 
 
-
     }
 }
+
 add_action('admin_enqueue_scripts', 'enqueue_sl_app_endpoint_style_and_script');
 
