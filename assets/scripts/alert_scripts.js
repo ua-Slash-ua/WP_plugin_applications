@@ -99,8 +99,9 @@ async function checkData(data, key = null) {
         // console.log('response:', response);
         return response.success === true;
     } catch (error) {
-        // console.error('error:', error);
+        alertMessage(`Такі дані для ${key} уже існують`,'error')
         return false;
+
     }
 }
 async function handleOption(func, data, key) {

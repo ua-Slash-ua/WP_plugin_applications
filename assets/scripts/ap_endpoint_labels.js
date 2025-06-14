@@ -4,7 +4,7 @@ function listenLabelType() {
 
     select.addEventListener('change', function () {
         const selectedValue = this.value;
-        console.log("Обрано:", selectedValue);
+        // console.log("Обрано:", selectedValue);
 
         if (selectedValue === 'l_text') {
             document.querySelector('.l_file_container').style.display = 'none'
@@ -51,11 +51,6 @@ async function loadLabels(data) {
             }
         })
 
-        const btnEdit = document.createElement('input')
-        btnEdit.type = 'button'
-        btnEdit.value = 'Edit'
-
-        elContainerAction.appendChild(btnEdit)
         elContainerAction.appendChild(btnRemove)
         labelItem.appendChild(elContainerAction)
         return labelItem
@@ -96,11 +91,7 @@ async function loadLabels(data) {
         btnRemove.type = 'button';
         btnRemove.value = 'Delete';
 
-        const btnEdit = document.createElement('input');
-        btnEdit.type = 'button';
-        btnEdit.value = 'Edit';
 
-        elContainerAction.appendChild(btnEdit);
         elContainerAction.appendChild(btnRemove);
         labelItem.appendChild(elContainerAction);
 
@@ -123,11 +114,18 @@ async function loadLabels(data) {
 }
 
 function addLabel() {
-    function getLabelText() {
+    async function getLabelText() {
         let data = {}
         const lName = document.getElementById('l_text_name')
         const lSlug = document.getElementById('l_text_slug')
-        if (!lName.value.trim() || !lSlug.value.trim() || !isValidSlug(lSlug.value.trim())) {
+        const isValid = await checkData([lName.value.trim(), lSlug.value.trim()], 'endpoint_label');
+
+        if (!lName.value.trim()
+            || !lSlug.value.trim()
+            || !isValidSlug(lSlug.value.trim())
+            || !isValid
+
+        ) {
             alertMessage('Невірно заповнені дані', 'error')
             return
         }
@@ -141,12 +139,14 @@ function addLabel() {
         return data
     }
 
-    function getLabelFile() {
+    async function getLabelFile() {
         let data = {}
         const lName = document.getElementById('l_file_name')
         const lSlug = document.getElementById('l_file_slug')
         const fileTypeSelect = document.getElementById('choose_file_type');
         const fileSizeSelect = document.getElementById('file_size_range');
+
+        const isValid = await checkData([lName.value.trim(), lSlug.value.trim()], 'endpoint_label');
 
 
         const selectedValues = Array.from(fileTypeSelect.selectedOptions).map(option => option.value);
@@ -154,7 +154,9 @@ function addLabel() {
             || !lSlug.value.trim()
             || fileSizeSelect.value === '0'
             || selectedValues.length === 0
-            || !isValidSlug(lSlug.value.trim())) {
+            || !isValidSlug(lSlug.value.trim())
+            || !isValid
+        ) {
             alertMessage('Невірно заповнені дані', 'error')
             return
         }
@@ -180,9 +182,9 @@ function addLabel() {
         let data = {}
         const select = document.getElementById('choose_label_type');
         if (select.value === 'l_text') {
-            data = getLabelText()
+            data = await getLabelText()
         } else {
-            data = getLabelFile()
+            data = await getLabelFile()
         }
         if (!data) {
             return

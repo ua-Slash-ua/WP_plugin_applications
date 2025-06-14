@@ -100,6 +100,7 @@ function finder_options() {
     $value = $data->value;
 
     $status = sl_find_option($value,$key);
+
     if (!$status){
         wp_send_json_success(['message' => 'Даних не знайдено!']);
     }else{

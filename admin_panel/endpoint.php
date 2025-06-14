@@ -108,6 +108,7 @@ function render_sl_app_endpoint_page()
                             <input type="button" id="ed_at_edit_type" value="Змінити">
                         </div>
 
+
                     </div>
                 </div>
 
