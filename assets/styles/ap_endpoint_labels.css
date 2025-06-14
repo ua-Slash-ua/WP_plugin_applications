@@ -1,18 +1,31 @@
-/*Add endpoint*/
-.add_labels {
-    max-width: 500px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 12px;
-    background: #f9f9f9;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+/* Загальний контейнер */
+.ed_process_label {
+    display: flex;
+    flex-direction: row;
+    width: 86vw;
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 2vw;
+    gap: 2vw;
+    align-items: flex-start;
     font-family: 'Segoe UI', sans-serif;
+}
+
+/* Ліва частина – додавання мітки */
+.add_labels {
+    width: 35vw;
+    background: #f9f9f9;
+    border-radius: 1vw;
+    box-shadow: 0 0.2vw 0.6vw rgba(0, 0, 0, 0.1);
+    padding: 2vw;
+    overflow-y: auto;
 }
 
 .add_labels label {
     display: block;
-    margin-top: 15px;
+    margin-top: 1.2vw;
     font-weight: 600;
+    font-size: 1.1vw;
     color: #333;
 }
 
@@ -20,65 +33,148 @@
 .add_labels select,
 .add_labels input[type="range"] {
     width: 100%;
-    padding: 10px;
-    margin-top: 6px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+    padding: 1vw;
+    margin-top: 0.5vw;
+    border-radius: 0.8vw;
+    border: 0.1vw solid #ccc;
+    font-size: 1vw;
     box-sizing: border-box;
-    font-size: 14px;
 }
 
 .add_labels input[type="range"] {
+    height: 3vh;
     padding: 0;
-    height: 30px;
 }
 
 #file_size_value {
     display: inline-block;
-    margin-left: 10px;
+    margin-left: 0.8vw;
     font-weight: bold;
     color: #007acc;
+    font-size: 1vw;
 }
 
 .choose_label_type_container,
 .l_text_container,
 .l_file_container {
-    margin-bottom: 20px;
+    margin-bottom: 2vh;
 }
 
 .label_add_action {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 2vh;
 }
 
 .label_add_action input[type="button"] {
     background-color: #007acc;
     color: white;
-    padding: 12px 24px;
+    padding: 1vw 2vw;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
+    border-radius: 0.8vw;
+    font-size: 1.1vw;
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 10px rgba(0, 122, 204, 0.2);
+    box-shadow: 0 0.4vw 1vw rgba(0, 122, 204, 0.2);
 }
 
 .label_add_action input[type="button"]:hover {
     background-color: #005fa3;
-    transform: translateY(-2px);
+    transform: translateY(-0.3vw);
 }
 
 .label_add_action input[type="button"]:active {
     background-color: #004c82;
     transform: scale(0.98);
 }
+
 #choose_file_type {
     width: 100%;
-    padding: 8px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 14px;
+    padding: 0.8vw;
+    border-radius: 0.8vw;
+    border: 0.1vw solid #ccc;
+    font-size: 1vw;
     background-color: #fff;
     box-sizing: border-box;
+}
+
+/* Права частина – перегляд міток */
+.preview_labels {
+    width: 50vw; /* 100vw - 35vw - 2vw*2 (padding) */
+    background-color: #f9f9f9;
+    border-radius: 1vw;
+    box-shadow: 0 0.2vw 0.6vw rgba(0, 0, 0, 0.1);
+    padding: 2vw;
+    overflow-y: auto;
+    max-height: 100vh;
+}
+
+.labels_container {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.labels_container li {
+    background-color: #fff;
+    border: 0.1vw solid #ddd;
+    border-radius: 1vw;
+    padding: 1.6vw;
+    margin-bottom: 1.6vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+}
+
+.labels_container li div {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5vw;
+    flex-wrap: wrap;
+}
+
+.labels_container li div span:first-child {
+    font-weight: bold;
+    color: #333;
+    min-width: 12vw;
+    font-size: 1vw;
+}
+
+.labels_container li div span:last-child {
+    color: #555;
+    word-break: break-word;
+    font-size: 1vw;
+}
+
+.labels_container li ul {
+    padding-left: 2vw;
+    margin: 0;
+}
+
+.labels_container li ul li {
+    list-style-type: disc;
+    margin: 0.5vh 0;
+    color: #444;
+    font-size: 1vw;
+}
+
+.labels_container input[type="button"] {
+    padding: 0.6vw 1.2vw;
+    margin-right: 0.8vw;
+    border: none;
+    border-radius: 0.6vw;
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 1vw;
+}
+
+.labels_container input[type="button"]:last-child {
+    background-color: #f44336;
+}
+
+.labels_container input[type="button"]:hover {
+    opacity: 0.85;
 }

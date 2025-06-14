@@ -21,16 +21,16 @@ function listenLabelType() {
 
 async function loadLabels(data) {
     let dataCompliance = {
-        'name':'Назва поля',
-        'slug':'Слаг поля',
-        'type':'Тип поля',
-        'file_types':'Типи файлу(ів)',
-        'file_size':'Розмір файлу(ів)',
+        'name': 'Назва поля',
+        'slug': 'Слаг поля',
+        'type': 'Тип поля',
+        'file_types': 'Типи файлу(ів)',
+        'file_size': 'Розмір файлу(ів)',
     }
-    function loadLabelText(data){
-        const labelItem = document.createElement('li')
 
-        for(let key in data){
+    async function loadLabelText(data) {
+        const labelItem = document.createElement('li')
+        for (let key in data) {
             const elContainer = document.createElement('div')
             const nameLabel = document.createElement('span')
             nameLabel.textContent = dataCompliance[key]
@@ -44,6 +44,13 @@ async function loadLabels(data) {
         const btnRemove = document.createElement('input')
         btnRemove.type = 'button'
         btnRemove.value = 'Delete'
+        btnRemove.addEventListener('click', async function () {
+            let status = await handleOption('sl_remove_option', data, 'endpoint_label')
+            if(status){
+                this.parentElement.parentElement.remove()
+            }
+        })
+
         const btnEdit = document.createElement('input')
         btnEdit.type = 'button'
         btnEdit.value = 'Edit'
@@ -51,11 +58,10 @@ async function loadLabels(data) {
         elContainerAction.appendChild(btnEdit)
         elContainerAction.appendChild(btnRemove)
         labelItem.appendChild(elContainerAction)
-
         return labelItem
     }
+
     function loadLabelFile(data) {
-        console.log(data)
         const labelItem = document.createElement('li');
 
         for (let key in data) {
@@ -102,18 +108,17 @@ async function loadLabels(data) {
     }
 
 
-
     if (!Array.isArray(data)) {
         data = [data]
     }
     const labelsContainer = document.querySelector('.labels_container')
-    data.forEach( label =>{
-        if (label['type'] ==='l_text') {
-            labelsContainer.appendChild(loadLabelText(label))
-        }else if(label['type'] ==='l_file'){
-            labelsContainer.appendChild(loadLabelFile(label))
+    for (const label of data) {
+        if (label['type'] === 'l_text') {
+            labelsContainer.appendChild(await loadLabelText(label))
+        } else if (label['type'] === 'l_file') {
+            labelsContainer.appendChild(await loadLabelFile(label))
         }
-    })
+    }
 
 }
 
@@ -149,8 +154,7 @@ function addLabel() {
             || !lSlug.value.trim()
             || fileSizeSelect.value === '0'
             || selectedValues.length === 0
-            || !isValidSlug(lSlug.value.trim()))
-        {
+            || !isValidSlug(lSlug.value.trim())) {
             alertMessage('Невірно заповнені дані', 'error')
             return
         }
@@ -184,11 +188,13 @@ function addLabel() {
             return
         }
         data['type'] = select.value
+        data = await handleOption('sl_add_option', data, 'endpoint_label')
         await loadLabels(data)
     });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     listenLabelType()
     addLabel()
+    await loadLabels(await handleOption('sl_get_option', [], 'endpoint_label'))
 })
