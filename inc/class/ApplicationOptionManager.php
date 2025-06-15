@@ -122,7 +122,7 @@ class ApplicationOptionManager
         // Повертаємо true, якщо хоча б один рядок був змінений
         return $result !== false && $result > 0;
     }
-    public function findAppOption($value, ?string $key = null): bool|array
+    public function findAppOption($value, ?string $key = null, array $jsonKeys = null): bool|array
     {
         global $wpdb;
         $table = $this->table;
@@ -143,20 +143,34 @@ class ApplicationOptionManager
         }
 
         $results = $wpdb->get_results($sql);
-
         $matched = [];
 
         foreach ($results as $row) {
             $decoded = json_decode($row->options_value, true);
 
             if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                // Якщо передано конкретні ключі — перевіряємо тільки їх
+                $searchArea = [];
+
+                if ($jsonKeys !== null && is_array($jsonKeys)) {
+                    foreach ($jsonKeys as $k) {
+                        if (array_key_exists($k, $decoded)) {
+                            $searchArea[] = $decoded[$k];
+                        }
+                    }
+                } else {
+                    // Якщо ключі не передані — шукаємо по всіх значеннях
+                    $searchArea = array_values($decoded);
+                }
+
                 foreach ($values as $val) {
-                    if (in_array($val, $decoded, true)) {
+                    if (in_array($val, $searchArea, true)) {
                         $matched[] = $row;
                         break;
                     }
                 }
             } else {
+                // Просте порівняння якщо не JSON
                 foreach ($values as $val) {
                     if (strval($row->options_value) === strval($val)) {
                         $matched[] = $row;
@@ -168,6 +182,7 @@ class ApplicationOptionManager
 
         return !empty($matched) ? $matched : false;
     }
+
 
     private function deepSearchInArray(array $array, $needle): bool
     {

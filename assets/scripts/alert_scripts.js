@@ -84,20 +84,25 @@ function isValidSlug(slug,symbol = /^[a-zA-Z0-9_-]+$/) {
     return symbol.test(slug);
 }
 
-async function checkData(data, key = null) {
+async function checkData(data, key = null, returnData = false,keyArray = []) {
     if (!Array.isArray(data)) {
         return false;
     }
 
     const dataSend = {
         key: key,
-        value: data
+        value: data,
+        keysArray: keyArray,
     };
 
     try {
         const response = await callWpAjaxFunction('finder_options', dataSend);
-        // console.log('response:', response);
-        return response.success === true;
+        if (!returnData){
+            return response.success === true;
+        }else {
+            return response.data.data
+        }
+
     } catch (error) {
         alertMessage(`Такі дані для ${key} уже існують`,'error')
         return false;
@@ -123,7 +128,7 @@ async function handleOption(func, data, key) {
             alertMessage(response.data.message, "success");
 
         }
-        return response.data?.data || true;  // повернути результат або true якщо немає data
+            return response.data?.data || true;  // повернути результат або true якщо немає data
 
     }  catch (error) {
         alertMessage(error.message || "Невідома помилка", "error");

@@ -45,6 +45,12 @@ function render_sl_app_endpoint_page()
                                     <label for="ep_add_path_end">End Path</label>
                                     <input type="text" id="ep_add_path_end">
                                 </div>
+                                <div class="ep_add_method_container">
+                                    <label for="ep_add_method">Choose type</label>
+                                    <select id="ep_add_method">POST
+                                        <option value="ep_add_method_post">POST</option>
+                                    </select>
+                                </div>
                                 <div class="ep_add_type_container">
                                     <label for="ep_add_type">Choose type</label>
                                     <select id="ep_add_type">
@@ -64,7 +70,9 @@ function render_sl_app_endpoint_page()
 
                             </div>
                             <div class="ep_review_container">
+                                <ul>
 
+                                </ul>
                             </div>
                         </div>
                     </div>

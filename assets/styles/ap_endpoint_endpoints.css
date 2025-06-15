@@ -77,3 +77,128 @@
     background-color: #004c82;
     transform: scale(0.98);
 }
+/*Endpoints Preview*/
+.ep_review_container {
+    width: 58vw;
+    margin: 2vh auto;
+    padding: 2.5vh 2vw;
+    background-color: #ffffff;
+    border-radius: 0.8vw;
+    box-shadow: 0 0.4vh 1vh rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 0.95vw;
+    color: #222;
+    line-height: 1.4;
+}
+
+.ep_review_container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ep_review_container li {
+    background-color: #fafafa;
+    margin-bottom: 1.5vh;
+    padding: 1.8vh 1.5vw;
+    border: 1px solid #ddd;
+    border-radius: 0.8vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2vh;
+    box-shadow: 0 0.2vh 0.4vh rgba(0, 0, 0, 0.02);
+}
+
+.ep_review_container li > div {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.ep_review_container li > div span:first-child {
+    font-weight: 600;
+    min-width: 9vw;
+    color: #333;
+    margin-right: 1vw;
+}
+
+.ep_review_container li > div span:last-child {
+    color: #555;
+    word-break: break-word;
+    flex: 1;
+}
+
+.ep_review_container li > span {
+    font-weight: 700;
+    text-transform: uppercase;
+    align-self: center;
+    padding: 0.4vh 1vw;
+    border-radius: 0.4vw;
+    background-color: #007acc;
+    color: white;
+    font-size: 0.85vw;
+    margin: 0.5vh 0;
+}
+
+.ep_review_container ul ul {
+    padding-left: 1vw;
+    margin-top: 1vh;
+}
+
+.ep_review_container ul ul li {
+    list-style: disc;
+    color: #444;
+    font-size: 0.9vw;
+    padding-left: 1vw;
+    margin-top: 0.4vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.ep_review_container input[type="button"] {
+    padding: 1vh 1.8vw;
+    margin: 1vh 0.6vw 0 0;
+    border: none;
+    border-radius: 0.5vw;
+    font-size: 0.9vw;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ep_review_container input[value="Edit"] {
+    background-color: #43a047;
+    color: white;
+}
+
+.ep_review_container input[value="Remove"] {
+    background-color: #e53935;
+    color: white;
+}
+
+.ep_review_container input[type="button"]:hover {
+    transform: translateY(-0.2vh);
+    opacity: 0.95;
+}
+
+.label_item {
+    font-size: 0.9vw;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5vh 0;
+    border-top: 1px solid #eee;
+}
+
+.label_name {
+    font-weight: 600;
+    color: #205d88;
+    margin-left: 0.4vw;
+}
+
+.label_slug {
+    font-style: italic;
+    color: #6c757d;
+    margin-left: 0.4vw;
+}

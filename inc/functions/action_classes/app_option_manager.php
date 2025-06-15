@@ -46,8 +46,8 @@ function sl_edit_options(string $key = null, string $old_data = null, string $ne
     return $appManager->editAppOption($key,$old_data,$new_data);
 }
 
-function sl_find_option($search, string $key = null){
+function sl_find_option($search, string $key = null, array $jsonKeys = null){
     global $appManager;
 
-    return $appManager->findAppOption($search, $key);
+    return $appManager->findAppOption($search, $key, $jsonKeys);
 }
