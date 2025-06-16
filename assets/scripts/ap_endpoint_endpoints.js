@@ -48,6 +48,18 @@ function addEndpoint() {
         let typeSlug = edType.value.trim()
         let labels = Array.from(edLabels.selectedOptions).map(option => option.value);
 
+        if (!pathEnd.startsWith('/') || !isValidSlug(pathEnd,/^[a-z0-9_\/-]+$/)){
+            alertMessage('Не валідний End PATH','error')
+            return
+        }
+        if (!typeSlug || typeSlug === ''){
+            alertMessage('Виберіть тип ендпоінту','error')
+            return
+        }
+        if (!labels || labels.length === 0) {
+            alertMessage('Виберіть поля для ендпоінту', 'error');
+            return;
+        }
 
         data['name'] = name
         data['path_end'] = pathEnd
@@ -62,6 +74,9 @@ function addEndpoint() {
     selectType.addEventListener('click', async function () {
         let data = await getEndpointData()
         data = await handleOption('sl_add_option', data, 'endpoints')
+        if (!data){
+            return
+        }
         await loadEndpoints(data)
     })
 }
