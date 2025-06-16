@@ -49,13 +49,20 @@ add_action('wp_ajax_nopriv_sl_get_option', 'sl_handle_get_option');
 function sl_handle_remove_option() {
     $data = json_decode(stripslashes($_POST['data']), true);
     $key = $data['key'] ?? null;
-    $value = json_encode($data['value']) ?? null;
+    $value = $data['value'] ?? null;
+    $opId = $data['opId'] ?? null;
 
-    if (!$key || !$value) {
+    if (!$key ) {
         wp_send_json_error(['message' => 'Ключ або значення не передано']);
     }
+    error_log('$opId'.$opId);
+    error_log('$value'.$value);
+    // Якщо $value масив, кодуємо в JSON (щоб передати рядок у sl_remove_option)
+    if (is_array($value)) {
+        $value = json_encode($value);
+    }
 
-    $status = sl_remove_option($key, $value);
+    $status = sl_remove_option($key, $value, optionId: $opId);
 
     if (!$status) {
         wp_send_json_error(['message' => "Не вдалося видалити опцію для '{$key}'"]);
@@ -63,6 +70,8 @@ function sl_handle_remove_option() {
         wp_send_json_success(['message' => "Опцію для '{$key}' видалено", 'data' => $status]);
     }
 }
+
+
 
 add_action('wp_ajax_sl_remove_option', 'sl_handle_remove_option');
 add_action('wp_ajax_nopriv_sl_remove_option', 'sl_handle_remove_option');

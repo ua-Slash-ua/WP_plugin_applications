@@ -69,6 +69,9 @@ class ApplicationOptionManager
 
     public function removeAppOption(string $key = null, int $id = null, string $value = null, string $parent_id = null): int
     {
+        error_log('111111');
+        error_log(print_r($value,true));
+        error_log('222222');
         $where = [];
         $values = [];
 
@@ -126,11 +129,12 @@ class ApplicationOptionManager
     {
         global $wpdb;
         $table = $this->table;
+//        error_log("LOG TEST: AJAX function called");
 
-        // Переконайся, що $value — масив
+
         $values = is_array($value) ? $value : [$value];
+//        error_log("findAppOption called with values: " . print_r($values, true) . ", key: " . var_export($key, true) . ", jsonKeys: " . print_r($jsonKeys, true));
 
-        // Базовий SQL
         $sql = "SELECT * FROM {$table}";
         $where = [];
 
@@ -142,46 +146,85 @@ class ApplicationOptionManager
             $sql .= " WHERE " . implode(' AND ', $where);
         }
 
+//        error_log("SQL Query: " . $sql);
+
         $results = $wpdb->get_results($sql);
+//        error_log("Number of rows fetched: " . count($results));
+
         $matched = [];
 
-        foreach ($results as $row) {
+        foreach ($results as $index => $row) {
+//            error_log("Processing row #{$index}: options_value = " . $row->options_value);
+
             $decoded = json_decode($row->options_value, true);
 
             if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
-                // Якщо передано конкретні ключі — перевіряємо тільки їх
+//                error_log("JSON decoded successfully: " . print_r($decoded, true));
+
                 $searchArea = [];
 
                 if ($jsonKeys !== null && is_array($jsonKeys)) {
                     foreach ($jsonKeys as $k) {
                         if (array_key_exists($k, $decoded)) {
                             $searchArea[] = $decoded[$k];
+//                            error_log("Adding to searchArea from key '{$k}': " . print_r($decoded[$k], true));
                         }
                     }
                 } else {
-                    // Якщо ключі не передані — шукаємо по всіх значеннях
                     $searchArea = array_values($decoded);
+//                    error_log("Using all values from decoded JSON as searchArea: " . print_r($searchArea, true));
                 }
 
                 foreach ($values as $val) {
-                    if (in_array($val, $searchArea, true)) {
-                        $matched[] = $row;
-                        break;
+                    $valNorm = ltrim(strtolower($val), '/');
+//                    error_log("Normalized search value: '{$val}' -> '{$valNorm}'");
+
+                    foreach ($searchArea as $searchItem) {
+                        if (is_string($searchItem)) {
+                            $searchNorm = ltrim(strtolower($searchItem), '/');
+//                            error_log("Comparing with searchItem: '{$searchItem}' -> '{$searchNorm}'");
+
+                            if ($valNorm === $searchNorm) {
+//                                error_log("Match found! Adding row to matched results.");
+                                $matched[] = $row;
+                                break 2;
+                            }
+                        } else {
+//                            error_log("Skipping non-string searchItem: " . print_r($searchItem, true));
+                        }
                     }
                 }
             } else {
-                // Просте порівняння якщо не JSON
+//                error_log("Not a JSON or failed decoding, doing direct comparison.");
+
                 foreach ($values as $val) {
-                    if (strval($row->options_value) === strval($val)) {
-                        $matched[] = $row;
-                        break;
+                    if (is_string($row->options_value) && is_string($val)) {
+                        $rowValNorm = ltrim(strtolower($row->options_value), '/');
+                        $valNorm = ltrim(strtolower($val), '/');
+//                        error_log("Normalized row value: '{$row->options_value}' -> '{$rowValNorm}', search value: '{$val}' -> '{$valNorm}'");
+
+                        if ($rowValNorm === $valNorm) {
+//                            error_log("Match found in direct comparison! Adding row to matched results.");
+                            $matched[] = $row;
+                            break;
+                        }
+                    } else {
+//                        error_log("Direct string comparison: '{$row->options_value}' vs '{$val}'");
+                        if (strval($row->options_value) === strval($val)) {
+//                            error_log("Match found in direct string comparison! Adding row to matched results.");
+                            $matched[] = $row;
+                            break;
+                        }
                     }
                 }
             }
         }
 
+//        error_log("Total matched rows: " . count($matched));
         return !empty($matched) ? $matched : false;
     }
+
+
 
 
     private function deepSearchInArray(array $array, $needle): bool

@@ -21,7 +21,6 @@ async function loadChooseTypeOrLabel(data, selectId) {
     if (!Array.isArray(data)) {
         data = [data]
     }
-    // console.log(data)
     const selectType = document.querySelector(`#${selectId}`)
     data.forEach(type => {
         const optionType = document.createElement('option')
@@ -48,12 +47,12 @@ function addEndpoint() {
         let typeSlug = edType.value.trim()
         let labels = Array.from(edLabels.selectedOptions).map(option => option.value);
 
-        if (!pathEnd.startsWith('/') || !isValidSlug(pathEnd,/^[a-z0-9_\/-]+$/)){
-            alertMessage('Не валідний End PATH','error')
+        if (!pathEnd.startsWith('/') || !isValidSlug(pathEnd, /^[a-z0-9_\/-]+$/)) {
+            alertMessage('Не валідний End PATH', 'error')
             return
         }
-        if (!typeSlug || typeSlug === ''){
-            alertMessage('Виберіть тип ендпоінту','error')
+        if (!typeSlug || typeSlug === 'none') {
+            alertMessage('Виберіть тип ендпоінту', 'error')
             return
         }
         if (!labels || labels.length === 0) {
@@ -66,7 +65,13 @@ function addEndpoint() {
         data['method'] = method
         data['type'] = await prepareOption(await checkData([typeSlug], 'endpoint_type', true, ['slug']))
         data['labels'] = await prepareOption(await checkData(labels, 'endpoint_label', true, ['slug']))
-        console.log(data)
+
+        edName.value = ''
+        edPathEnd.value = ''
+        edType.value = 'none'
+        edMethod.value = 'ep_add_method_post'
+        edLabels.value = ''
+
         return data
     }
 
@@ -74,10 +79,10 @@ function addEndpoint() {
     selectType.addEventListener('click', async function () {
         let data = await getEndpointData()
         data = await handleOption('sl_add_option', data, 'endpoints')
-        if (!data){
+        if (!data || data.length === 0) {
             return
         }
-        await loadEndpoints(data)
+        await loadEndpoints(await handleOption('sl_get_option', [], 'endpoints'))
     })
 }
 
@@ -104,7 +109,9 @@ async function loadEndpoints(data) {
         const typeLabel = document.createElement('span')
         typeLabel.textContent = dataCompliance['type']
         const typeContent = document.createElement('span')
-        typeContent.textContent = endpoint['type'][0]['name']
+        typeContent.textContent = Array.isArray(endpoint['type'])
+            ? (endpoint['type'][0]?.name || '—')
+            : (endpoint['type']?.name || '—');
 
         typeContainer.appendChild(typeLabel)
         typeContainer.appendChild(typeContent)
@@ -136,17 +143,25 @@ async function loadEndpoints(data) {
         endpoint['labels'].forEach(label => {
             const labelContainer = document.createElement('li')
             labelContainer.classList.add('label_item')
-            labelContainer.innerHTML = dataCompliance[label['type'] === 'l_text'? 'label_type_text': 'label_type_file'] +
-                    `<span class="label_name"> ${label.name} </span>  з ` +
+            labelContainer.innerHTML = dataCompliance[label['type'] === 'l_text' ? 'label_type_text' : 'label_type_file'] +
+                `<span class="label_name"> ${label.name} </span>  з ` +
                 `<span class="label_slug"> (${label.slug}) </span>`
 
-                labelMainContainer.appendChild(labelContainer)
+            labelMainContainer.appendChild(labelContainer)
         })
+
         // Endpoint ACTION
         const actionContainer = document.createElement('div')
         const btnRemove = document.createElement('input')
         btnRemove.type = 'button'
         btnRemove.value = 'Remove'
+        btnRemove.addEventListener('click', async function () {
+            let endData = await checkData([endpoint['path_end']], 'endpoints', true,['path_end'])
+            let status = await handleOption('sl_remove_option',null, 'endpoints',endData[0]['id'])
+            if (status) {
+                this.parentElement.parentElement.remove()
+            }
+        })
 
         const btnEdit = document.createElement('input')
         btnEdit.type = 'button'
@@ -163,8 +178,6 @@ async function loadEndpoints(data) {
         liContainer.appendChild(actionContainer)
 
         mainContainer.appendChild(liContainer)
-
-
 
 
     })

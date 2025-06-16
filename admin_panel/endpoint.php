@@ -54,7 +54,7 @@ function render_sl_app_endpoint_page()
                                 <div class="ep_add_type_container">
                                     <label for="ep_add_type">Choose type</label>
                                     <select id="ep_add_type">
-                                        <option disabled selected hidden>Виберіть тип ендпоінту</option>
+                                        <option value = "none" disabled selected hidden>Виберіть тип ендпоінту</option>
                                     </select>
                                 </div>
                                 <div class="ep_add_label_container">

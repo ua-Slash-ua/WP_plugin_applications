@@ -94,8 +94,8 @@ async function checkData(data, key = null, returnData = false,keyArray = []) {
         value: data,
         keysArray: keyArray,
     };
-
     try {
+
         const response = await callWpAjaxFunction('finder_options', dataSend);
         if (!returnData){
             return response.success === true;
@@ -109,7 +109,7 @@ async function checkData(data, key = null, returnData = false,keyArray = []) {
 
     }
 }
-async function handleOption(func, data, key) {
+async function handleOption(func, data, key, opId) {
     // console.log(func)
     // console.log(data)
     // console.log(key)
@@ -119,16 +119,17 @@ async function handleOption(func, data, key) {
 
     const dataSend = {
         key: key,
-        value: data
+        value: data,
+        opId: opId,
     };
 
     try {
+
         const response = await callWpAjaxFunction(func, dataSend);
         if (!func.startsWith('sl_get_')){
             alertMessage(response.data.message, "success");
-
         }
-            return response.data?.data || true;  // повернути результат або true якщо немає data
+        return response.data?.data || true;  // повернути результат або true якщо немає data
 
     }  catch (error) {
         alertMessage(error.message || "Невідома помилка", "error");
