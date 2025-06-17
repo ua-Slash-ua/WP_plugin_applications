@@ -143,9 +143,16 @@ async function loadEndpoints(data) {
         endpoint['labels'].forEach(label => {
             const labelContainer = document.createElement('li')
             labelContainer.classList.add('label_item')
+            let MandateText = label.mandate === 'on'
+                ?  `<span class="label_mandate"> ( Обов'язкове ) </span>`
+                :  `<span class="label_mandate_not"> ( Не обов'язкове ) </span>`
+
+
             labelContainer.innerHTML = dataCompliance[label['type'] === 'l_text' ? 'label_type_text' : 'label_type_file'] +
                 `<span class="label_name"> ${label.name} </span>  з ` +
-                `<span class="label_slug"> (${label.slug}) </span>`
+                `<span class="label_slug"> (${label.slug}) </span>` +
+                MandateText
+
 
             labelMainContainer.appendChild(labelContainer)
         })

@@ -86,6 +86,10 @@ function render_sl_app_endpoint_page()
                                         <option value="l_file">Файл</option>
                                     </select>
                                 </div>
+                                <div class="choose_label_mandate_container">
+                                    <label for="choose_label_mandate">Обов'язкове поле</label>
+                                    <input type="checkbox" id="choose_label_mandate">
+                                </div>
 
                                 <div class="l_text_container">
                                     <label for="l_text_name">Введіть назву</label>
