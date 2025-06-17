@@ -1,0 +1,379 @@
+#applications-filter-form {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#applications-filter-form .filters input,
+#applications-filter-form .filters select {
+    padding: 6px 10px;
+    font-size: 14px;
+}
+
+#applications-list .application-row {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#applications-list .application-row:last-child {
+    border-bottom: none;
+}
+
+.application-meta {
+    font-weight: bold;
+}
+
+.status-viewed {
+    color: green;
+}
+
+.status-unviewed {
+    color: red;
+}
+
+/* Модальне вікно */
+#application-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#application-modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    width: 500px;
+    position: relative;
+    border-radius: 6px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.close-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: transparent;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+}
+.application-item {
+    width: 100%;
+    max-width: 100vw;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 12px 20px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-wrap: nowrap;       /* не переносити в інший рядок */
+    align-items: center;     /* вертикальне вирівнювання по центру */
+    justify-content: space-between;  /* максимальний розподіл простору між елементами */
+    gap: 15px;
+}
+
+.application-item > * {
+    flex-shrink: 0; /* не стискати елементи занадто */
+}
+
+/* Встановлюємо приблизні ширини (пропорції) для ключових блоків */
+.application-item strong {
+    flex-basis: 60px; /* для ID */
+    font-weight: 600;
+}
+
+.application-item .type {
+    flex-basis: 150px;
+    color: #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.application-item .name {
+    flex-grow: 1; /* займає решту місця */
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.application-item button.view-application {
+    flex-basis: 120px;
+    background-color: #0073aa;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.application-item button.view-application:hover {
+    background-color: #005177;
+}
+
+.application-item .status {
+    flex-basis: 140px;
+    font-weight: 600;
+    color: #cc0000; /* червоний за замовчуванням */
+    text-align: right;
+}
+
+.application-item .status.viewed {
+    color: green;
+}
+
+/* Адаптивність для мобільних */
+@media (max-width: 600px) {
+    .application-item {
+        flex-wrap: wrap; /* дозволити перенос */
+        padding: 10px 15px;
+    }
+
+    .application-item strong,
+    .application-item .type,
+    .application-item .name,
+    .application-item .status,
+    .application-item button.view-application {
+        flex-basis: 100%;
+        text-align: left;
+        margin-bottom: 6px;
+    }
+}
+.hidden {
+    display: none;
+}
+#application-modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#application-modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px 40px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    position: relative;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.3s ease;
+}
+.close-button:hover {
+    color: #000;
+}
+
+#application-details p {
+    margin: 0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#application-details p strong {
+    min-width: 130px;
+    color: #555;
+    font-weight: 600;
+}
+
+#application-details p span.emoji {
+    font-size: 20px;
+}
+
+/* Кнопка "Позначити як переглянуту" */
+#mark-viewed {
+    margin-top: 20px;
+    align-self: flex-end;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(76,175,80,0.4);
+    transition: background-color 0.3s ease;
+}
+#mark-viewed:hover {
+    background: #45a049;
+}
+#applications-filter-form {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 10px 15px;
+    background: #f9fafb;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#applications-filter-form .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#applications-filter-form input[type="text"],
+#applications-filter-form input[type="email"],
+#applications-filter-form select {
+    flex: 1 1 150px;
+    min-width: 150px;
+    padding: 10px 12px;
+    border: 1.5px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: border-color 0.3s ease;
+    background-color: #fff;
+}
+
+#applications-filter-form input[type="text"]:focus,
+#applications-filter-form input[type="email"]:focus,
+#applications-filter-form select:focus {
+    border-color: #3182ce;
+    outline: none;
+    box-shadow: 0 0 6px rgba(49,130,206,0.5);
+}
+
+#applications-filter-form button {
+    padding: 10px 20px;
+    font-size: 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-width: 120px;
+    flex-shrink: 0;
+}
+
+#applications-filter-form button.button-primary {
+    background-color: #3182ce;
+    color: white;
+}
+
+#applications-filter-form button.button-primary:hover {
+    background-color: #2b6cb0;
+}
+
+#applications-filter-form button#reset-filters {
+    background-color: #e2e8f0;
+    color: #2d3748;
+}
+
+#applications-filter-form button#reset-filters:hover {
+    background-color: #cbd5e0;
+}
+
+@media (max-width: 768px) {
+    #applications-filter-form .filters {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    #applications-filter-form input[type="text"],
+    #applications-filter-form input[type="email"],
+    #applications-filter-form select,
+    #applications-filter-form button {
+        width: 100%;
+        flex: none;
+        min-width: auto;
+    }
+}
+#email-settings-block {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 20px 25px;
+    max-width: 600px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    margin: 30px 0;
+    font-family: inherit;
+}
+
+#email-settings-block h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 12px;
+}
+
+#email-settings-block label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #444;
+}
+
+#applications_notification_emails {
+    width: 100%;
+    min-height: 80px;
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+    font-family: inherit;
+}
+
+#applications_notification_emails:focus {
+    border-color: #0073aa;
+    outline: none;
+    box-shadow: 0 0 6px rgba(0, 115, 170, 0.5);
+}
+
+#email-settings-block .description {
+    font-size: 13px;
+    color: #666;
+    margin-top: 6px;
+    font-style: italic;
+}
