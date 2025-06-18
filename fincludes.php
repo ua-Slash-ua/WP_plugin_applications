@@ -15,6 +15,7 @@ require_once SL_APPLICATIONS_PATH . 'admin_panel/blocks/settings_security.php';
 
 
 require_once SL_APPLICATIONS_PATH . 'admin_panel/main.php';
+require_once SL_APPLICATIONS_PATH . 'admin_panel/applications.php';
 require_once SL_APPLICATIONS_PATH . 'admin_panel/endpoint.php';
 require_once SL_APPLICATIONS_PATH . 'admin_panel/settings_main.php';
 

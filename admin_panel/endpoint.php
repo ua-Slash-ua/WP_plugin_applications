@@ -172,9 +172,7 @@ function enqueue_sl_app_endpoint_style_and_script($hook)
 {
     if ($hook === 'applications_page_sl_app_endpoint') {
         $endpoint_styles = array(
-            ['sl_app_endpoint_types-style', 'assets/styles/ap_endpoint_types.css', [], '1.0.0'],
-            ['sl_app_endpoint_labels-style', 'assets/styles/ap_endpoint_labels.css', [], '1.0.0'],
-            ['sl_app_endpoint_endpoints-style', 'assets/styles/ap_endpoint_endpoints.css', [], '1.0.0'],
+            ['ap_endpoint_applications-style', 'assets/styles/ap_endpoint_applications.css', [], '1.0.0'],
         );
         // CSS
         foreach ($endpoint_styles as $endpoint_style) {
@@ -186,10 +184,8 @@ function enqueue_sl_app_endpoint_style_and_script($hook)
             );
         }
         $endpoint_scripts = array(
-            ['sl_app_endpoint_types-script', 'assets/scripts/ap_endpoint_types.js', [], '1.0.0'],
-            ['sl_app_endpoint_labels-script', 'assets/scripts/ap_endpoint_labels.js', [], '1.0.0'],
-            ['sl_app_endpoint_endpoints-script', 'assets/scripts/ap_endpoint_endpoints.js', [], '1.0.0'],
-        );
+            ['ap_endpoint_applications-script', 'assets/scripts/ap_endpoint_applications.js', [], '1.0.0'],
+);
 
         // JS
         foreach ($endpoint_scripts as $endpoint_script) {
