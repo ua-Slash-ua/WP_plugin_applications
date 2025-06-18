@@ -44,7 +44,6 @@ add_action('wp_ajax_nopriv_get_log_and_pass', 'get_log_and_pass');
 function get_log_and_pass() {
     $stored_data = sl_get_option('base_auth');
 
-    error_log('type'.gettype($stored_data));
     // Якщо $stored_data — рядок, намагаємось розпарсити JSON
     if (is_string($stored_data)) {
         $decoded = json_decode($stored_data, true);

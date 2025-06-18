@@ -31,8 +31,8 @@ function sl_handle_get_option() {
     }
 
     $status = sl_get_option($key);
-    error_log(print_r($_POST['data'], true));
-    error_log(print_r($status, true));
+//    error_log(print_r($_POST['data'], true));
+//    error_log(print_r($status, true));
 
     if (!$status) {
         wp_send_json_error(['message' => "Опції для '{$key}' не знайдено"]);
@@ -55,8 +55,8 @@ function sl_handle_remove_option() {
     if (!$key ) {
         wp_send_json_error(['message' => 'Ключ або значення не передано']);
     }
-    error_log('$opId'.$opId);
-    error_log('$value'.$value);
+//    error_log('$opId'.$opId);
+//    error_log('$value'.$value);
     // Якщо $value масив, кодуємо в JSON (щоб передати рядок у sl_remove_option)
     if (is_array($value)) {
         $value = json_encode($value);

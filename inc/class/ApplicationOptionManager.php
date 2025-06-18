@@ -69,9 +69,7 @@ class ApplicationOptionManager
 
     public function removeAppOption(string $key = null, int $id = null, string $value = null, string $parent_id = null): int
     {
-        error_log('111111');
-        error_log(print_r($value,true));
-        error_log('222222');
+
         $where = [];
         $values = [];
 

@@ -1,18 +1,18 @@
 <?php
 use sl_app\ApplicationOptionManager;
-$appManager = new ApplicationOptionManager();
+$appOptionManager = new ApplicationOptionManager();
 
 function sl_add_option($optionKey,$optionValue,$optionParentId = 0 ): int|false
 {
-    global $appManager;
-    return $appManager->createAppOption($optionKey,$optionValue,$optionParentId);
+    global $appOptionManager;
+    return $appOptionManager->createAppOption($optionKey,$optionValue,$optionParentId);
 }
 
 function sl_get_option($optionKey, int $optionId = null, int $optionParentId = null): array|string|null
 {
-    global $appManager;
+    global $appOptionManager;
 
-    $result = $appManager->getAppOption($optionKey, $optionId, $optionParentId);
+    $result = $appOptionManager->getAppOption($optionKey, $optionId, $optionParentId);
 
     // Якщо null або рядок — можливо розпарсити
     if (is_string($result)) {
@@ -34,20 +34,20 @@ function sl_get_option($optionKey, int $optionId = null, int $optionParentId = n
 
 function sl_remove_option(string $optionKey = null, string $optionValue = null, int $optionId = null,  string $optionParentId = null): int
 {
-    global $appManager;
+    global $appOptionManager;
 
-    return $appManager->removeAppOption($optionKey,$optionId,$optionValue,$optionParentId);
+    return $appOptionManager->removeAppOption($optionKey,$optionId,$optionValue,$optionParentId);
 }
 
 function sl_edit_options(string $key = null, string $old_data = null, string $new_data = null): bool
 {
-    global $appManager;
+    global $appOptionManager;
 
-    return $appManager->editAppOption($key,$old_data,$new_data);
+    return $appOptionManager->editAppOption($key,$old_data,$new_data);
 }
 
 function sl_find_option($search, string $key = null, array $jsonKeys = null){
-    global $appManager;
+    global $appOptionManager;
 
-    return $appManager->findAppOption($search, $key, $jsonKeys);
+    return $appOptionManager->findAppOption($search, $key, $jsonKeys);
 }

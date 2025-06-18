@@ -179,7 +179,7 @@ async function loadEndpoints(data) {
 
         liContainer.appendChild(nameContainer)
         liContainer.appendChild(typeContainer)
-        liContainer.appendChild(methodContent)
+        liContainer.appendChild(methodContainer)
         liContainer.appendChild(endPathContainer)
         liContainer.appendChild(labelMainContainer)
         liContainer.appendChild(actionContainer)
