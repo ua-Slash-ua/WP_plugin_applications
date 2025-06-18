@@ -56,11 +56,12 @@ function sl_handle_remove_option() {
         wp_send_json_error(['message' => 'Ключ або значення не передано']);
     }
 //    error_log('$opId'.$opId);
-//    error_log('$value'.$value);
+
     // Якщо $value масив, кодуємо в JSON (щоб передати рядок у sl_remove_option)
     if (is_array($value)) {
-        $value = json_encode($value);
+        $value = json_encode($value,JSON_UNESCAPED_UNICODE);
     }
+//    error_log('$value'.$value);
 
     $status = sl_remove_option($key, $value, optionId: $opId);
 
@@ -81,8 +82,8 @@ add_action('wp_ajax_nopriv_sl_remove_option', 'sl_handle_remove_option');
 function sl_handle_edit_option() {
     $data = json_decode(stripslashes($_POST['data']), true);
     $key = $data['key'] ?? null;
-    $old = json_encode($data['value'][0] ?? null);
-    $new = json_encode($data['value'][1] ?? null);
+    $old = json_encode($data['value'][0] ?? null,JSON_UNESCAPED_UNICODE);
+    $new = json_encode($data['value'][1] ?? null,JSON_UNESCAPED_UNICODE);
     if (!$key || !$old || !$new) {
         wp_send_json_error(['message' => 'Ключ або дані для редагування не передані']);
     }
