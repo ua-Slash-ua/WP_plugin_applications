@@ -38,3 +38,10 @@ function add_application(string $name, string $type, array $labels): string
     return '';
 
 }
+
+function get_applications(): array|object|null
+{
+    global $appManager, $appMetaManager;
+    $allApplications = $appManager->get_all();
+    return $allApplications;
+}

@@ -9,6 +9,7 @@ require_once SL_APPLICATIONS_PATH . 'admin_panel/blocks/sl_app_alert.php';
 
 require_once SL_APPLICATIONS_PATH . 'inc/functions/base_auth.php';
 require_once SL_APPLICATIONS_PATH . 'inc/functions/handlers_option.php';
+require_once SL_APPLICATIONS_PATH . 'inc/functions/handlers_application.php';
 
 
 require_once SL_APPLICATIONS_PATH . 'admin_panel/blocks/settings_security.php';

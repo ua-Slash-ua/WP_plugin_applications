@@ -1,0 +1,52 @@
+/*Стилі фільтрів*/
+.filtered_container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ddd;
+    max-width: 100%;
+}
+
+.filtered_container > div {
+    flex: 1 1 220px;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filtered_container select,
+.filtered_container input[type="text"],
+.filtered_container input[type="button"] {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filtered_container select:focus,
+.filtered_container input[type="text"]:focus,
+.filtered_container input[type="button"]:focus {
+    border-color: #409eff;
+    box-shadow: 0 0 0 3px rgba(64, 158, 255, 0.2);
+    outline: none;
+}
+
+.filtered_container input[type="button"] {
+    background-color: #409eff;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filtered_container input[type="button"]:hover {
+    background-color: #317ac4;
+}

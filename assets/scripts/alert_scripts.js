@@ -139,7 +139,28 @@ async function handleOption(func, data, key, opId = null) {
     }
 }
 
+async function handleApplication(func, data ){
+    if (!Array.isArray(data) && typeof data !== 'object') { // підтримати об'єкт і масив
+        return false;
+    }
+    try {
+        const dataSend = {
+            value: data,
+        };
 
+        const response = await callWpAjaxFunction(func, dataSend);
+        if (!func.startsWith('sl_get_')){
+            alertMessage(response.data.message, "success");
+        }
+        // console.log(response)
+        return response.data.data || [];  // повернути результат або true якщо немає data
+
+    }  catch (error) {
+        alertMessage(error.message || "Невідома помилка", "error");
+        console.error("handleApplication Error:", error);
+        return null;
+    }
+}
 
 document.addEventListener("DOMContentLoaded", function () {
 

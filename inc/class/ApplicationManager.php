@@ -37,4 +37,11 @@ class ApplicationManager {
 
         return $wpdb->insert_id;
     }
+    public function get_all() {
+        global $wpdb;
+
+        $query = "SELECT * FROM {$this->table} ORDER BY created_at DESC";
+
+        return $wpdb->get_results($query);
+    }
 }

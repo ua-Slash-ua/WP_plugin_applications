@@ -42,7 +42,7 @@ function enqueue_sl_app_assets($hook)
             'sl_app_endpoint_labels-script',
             'sl_app_alert-script',
             'sl_app_settings_security-script',
-            'ap_endpoint_applications-script',
+            'ap_applications-script',
         ]; // усі зареєстровані хендли твоїх скриптів
 
         foreach ($script_handles as $handle) {

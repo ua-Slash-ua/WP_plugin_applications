@@ -27,7 +27,20 @@ function render_sl_app_applications_page()
             <div class="applications_container">
                 <h2>Applications List</h2>
                 <div class="filtered_container">
-
+                    <div class="filtered_ed_type">
+                        <select name="" id="filtered_ed_type" >
+                            <option value="" disabled selected hidden>Виберіть тип заявки</option>
+                        </select>
+                    </div>
+                    <div class="filtered_ed_label">
+                        <select name="" id="filtered_ed_label">
+                            <option value="" disabled selected hidden>Виберіть поле заявки</option>
+                        </select>
+                        <input type="text" id="filtered_ed_label_value" placeholder="Вкажіть значення поля">
+                    </div>
+                    <div class="filtered_action">
+                        <input type="button" value="Filter" id="app_filter">
+                    </div>
                 </div>
                 <div class="preview-container">
 
@@ -45,7 +58,7 @@ function enqueue_sl_app_applications_style_and_script($hook)
 {
     if ($hook === 'applications_page_sl_app_applications') {
         $endpoint_styles = array(
-            ['sl_app_endpoint_types-style', 'assets/styles/ap_endpoint_types.css', [], '1.0.0'],
+            ['sl_app_applications-style', 'assets/styles/ap_applications.css', [], '1.0.0'],
         );
         // CSS
         foreach ($endpoint_styles as $endpoint_style) {
@@ -57,7 +70,7 @@ function enqueue_sl_app_applications_style_and_script($hook)
             );
         }
         $endpoint_scripts = array(
-            ['sl_app_endpoint_types-script', 'assets/scripts/ap_endpoint_types.js', [], '1.0.0'],
+            ['sl_app_applications-script', 'assets/scripts/ap_applications.js', [], '1.0.0'],
         );
 
         // JS

@@ -20,7 +20,7 @@ class ApplicationMetaManager
      * @param string $meta_value
      * @return int|false ID запису або false у разі помилки
      */
-    public function add(int $main_id, string $meta_key, string $meta_value)
+    public function add(int $main_id, string $meta_key, string $meta_value): bool|int
     {
         global $wpdb;
 
