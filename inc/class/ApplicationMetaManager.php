@@ -44,4 +44,43 @@ class ApplicationMetaManager
 
         return $wpdb->insert_id;
     }
+
+    /**
+     * Отримати всі записи з таблиці sl_application_meta за переданими параметрами
+     *
+     * @param int|null $main_id
+     * @param string|null $meta_key
+     * @param string|null $meta_value
+     * @return array
+     */
+    public function getAll(?int $main_id = null, ?string $meta_key = null, ?string $meta_value = null): array
+    {
+        global $wpdb;
+
+        $where = '1=1';
+        $params = [];
+
+        if ($main_id !== null) {
+            $where .= ' AND main_id = %d';
+            $params[] = $main_id;
+        }
+
+        if ($meta_key !== null) {
+            $where .= ' AND meta_key = %s';
+            $params[] = $meta_key;
+        }
+
+        if ($meta_value !== null) {
+            $where .= ' AND meta_value = %s';
+            $params[] = $meta_value;
+        }
+
+        $query = $wpdb->prepare(
+            "SELECT * FROM {$this->table} WHERE $where",
+            ...$params
+        );
+
+        return $wpdb->get_results($query, ARRAY_A);
+    }
+
 }

@@ -162,6 +162,23 @@ async function handleApplication(func, data ){
     }
 }
 
+async function loadChooseTypeOrLabel(data, selectId) {
+    if (!Array.isArray(data)) {
+        data = [data]
+    }
+    const selectType = document.querySelector(`#${selectId}`)
+    data.forEach(type => {
+        const optionType = document.createElement('option')
+        optionType.value = type.slug
+        optionType.textContent = type.name
+        selectType.appendChild(optionType)
+    })
+}
+function getLabelNameBySlug(labels, slug) {
+    const found = labels.find(label => label.slug === slug);
+    return found ? found.name : null;
+}
+
 document.addEventListener("DOMContentLoaded", function () {
 
     let tabs = [

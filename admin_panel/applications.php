@@ -43,7 +43,17 @@ function render_sl_app_applications_page()
                     </div>
                 </div>
                 <div class="preview-container">
+                    <div class="preview_container_header">
+                        <span>ID Заявки</span>
+                        <span>Тип Заявки</span>
+                        <span>Поле Заявки</span>
+                        <span>Статус перегляду</span>
+                        <span>Дата створення</span>
+                        <span>Дії</span>
+                    </div>
+                    <ul class="preview_container_list">
 
+                    </ul>
                 </div>
 
             </div>

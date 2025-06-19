@@ -17,18 +17,7 @@ async function prepareOption(data) {
     return newData
 }
 
-async function loadChooseTypeOrLabel(data, selectId) {
-    if (!Array.isArray(data)) {
-        data = [data]
-    }
-    const selectType = document.querySelector(`#${selectId}`)
-    data.forEach(type => {
-        const optionType = document.createElement('option')
-        optionType.value = type.slug
-        optionType.textContent = type.name
-        selectType.appendChild(optionType)
-    })
-}
+
 
 function addEndpoint() {
     async function getEndpointData() {

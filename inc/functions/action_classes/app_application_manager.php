@@ -39,9 +39,25 @@ function add_application(string $name, string $type, array $labels): string
 
 }
 
-function get_applications(): array|object|null
+function get_applications(): array
 {
     global $appManager, $appMetaManager;
+    $applications = [];
     $allApplications = $appManager->get_all();
-    return $allApplications;
+
+    foreach ($allApplications as $application) {
+        $idApp = $application->id;
+
+        // Отримуємо мета-дані
+        $labels = $appMetaManager->getAll($idApp);
+
+        // Перетворюємо об'єкт на масив (щоб можна було додати ключ)
+        $applicationArray = (array) $application;
+        $applicationArray['labels'] = $labels;
+
+        $applications[] = $applicationArray;
+    }
+
+    return $applications;
 }
+
