@@ -139,13 +139,15 @@ async function handleOption(func, data, key, opId = null) {
     }
 }
 
-async function handleApplication(func, data ){
+async function handleApplication(func, data, id = 0 , view = '0'){
     if (!Array.isArray(data) && typeof data !== 'object') { // підтримати об'єкт і масив
         return false;
     }
     try {
         const dataSend = {
             value: data,
+            id: id,
+            view: view,
         };
 
         const response = await callWpAjaxFunction(func, dataSend);

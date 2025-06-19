@@ -61,3 +61,9 @@ function get_applications(): array
     return $applications;
 }
 
+function set_view(int $applicationId, bool $viewed): bool
+{
+    global $appManager;
+    $viewed = $viewed? 1:0;
+    return $appManager->setViewedStatus($applicationId, $viewed);
+}

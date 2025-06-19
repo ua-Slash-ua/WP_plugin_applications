@@ -66,6 +66,17 @@ async function previewApplications(data){
                 itemContent.textContent = data_value === '1' ? 'Переглянуто' : 'Не переглянуто'
                 itemContent.classList.add(data_value === '1' ? 'view' : 'not_view')
                 btnCheckView.value =  'Позначити як ' + (data_value === '1' ? 'не переглянута' : 'Переглянута')
+                btnCheckView.addEventListener('click',async () => {
+                    let reverseView = data_value==='1'? '0':'1'
+                    let statusView = await handleApplication('sl_set_view',[],app['id'],reverseView)
+                    if(statusView){
+                        await loadApplications()
+                        popup.style.display = 'none'
+                        document.querySelector('.pop-up-overlay').style.display = 'none';
+                    }
+
+
+                })
             }else if(data_key ==='labels') {
                 app[data_key].forEach(label=>{
                     const divLabel = document.createElement('div')
@@ -74,7 +85,7 @@ async function previewApplications(data){
 
                     labelName.classList.add('label_name')
                     labelContent.classList.add('label_content')
-                    labelName.textContent = label['meta_key']
+                    labelName.textContent = getLabelNameBySlug(labelsGlobal,label['meta_key'])
                     labelContent.textContent = label['meta_value']
 
 
@@ -83,8 +94,6 @@ async function previewApplications(data){
 
                     itemContent.appendChild(divLabel)
                 })
-
-
             }else {
                 itemContent.textContent = data_value
             }

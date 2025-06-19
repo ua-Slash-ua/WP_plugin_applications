@@ -44,4 +44,21 @@ class ApplicationManager {
 
         return $wpdb->get_results($query);
     }
+    public function setViewedStatus(int $applicationId, bool $viewed): bool
+    {
+        error_log('$applicationId = '.$applicationId);
+        error_log('$viewed = '.$viewed);
+        global $wpdb;
+
+        $result = $wpdb->update(
+            $this->table,
+            ['viewed' => $viewed ? 1 : 0], // значення, яке оновлюємо
+            ['id' => $applicationId],      // де саме
+            ['%d'],                        // формат значення
+            ['%d']                         // формат умови
+        );
+
+        return $result !== false;
+    }
+
 }
