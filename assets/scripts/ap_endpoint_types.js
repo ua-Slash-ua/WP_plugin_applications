@@ -14,6 +14,9 @@ function addEndpointTypes() {
             }
             await handleOption('sl_add_option', data, 'endpoint_type')
             await loadEndpointTypes( await handleOption('sl_get_option',[],'endpoint_type'))
+            name.value = ''
+            slug.value = ''
+
         }
 
 

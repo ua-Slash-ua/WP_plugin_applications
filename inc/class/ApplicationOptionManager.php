@@ -30,7 +30,13 @@ class ApplicationOptionManager
         ];
 
         $result = $this->db->insert($this->table, $data);
-
+//        if (!$result) {
+//            error_log('❌ DB Insert Failed');
+//            error_log('Last DB Error: ' . $this->db->last_error);
+//            error_log('DB Query: ' . $this->db->last_query);
+//        } else {
+//            error_log('✅ Insert successful, ID = ' . $this->db->insert_id);
+//        }
         return $result ? (int) $this->db->insert_id : false;
     }
 

@@ -21,7 +21,7 @@ function create_table()
         "sl_application_options" => [
             "id" => "INT UNSIGNED AUTO_INCREMENT PRIMARY KEY",
             "options_key" => "VARCHAR(255) NOT NULL",
-            "options_value" => "VARCHAR(255) DEFAULT NULL",
+            "options_value" => "TEXT DEFAULT NULL",
             "parent_id" => "INT UNSIGNED DEFAULT NULL"
         ]
     ];

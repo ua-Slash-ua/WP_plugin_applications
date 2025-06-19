@@ -79,10 +79,12 @@ function addEndpoint() {
     selectType.addEventListener('click', async function () {
         let data = await getEndpointData()
         data = await handleOption('sl_add_option', data, 'endpoints')
+
         if (!data || data.length === 0) {
             return
         }
         await loadEndpoints(await handleOption('sl_get_option', [], 'endpoints'))
+
     })
 }
 
