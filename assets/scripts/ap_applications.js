@@ -20,8 +20,11 @@ async function previewApplications(data){
 
         // Створюємо HTML елементи
         const divLabel = document.createElement('div');
+        divLabel.classList.add('application_label_container')
         const spanLabelName = document.createElement('span');
+        spanLabelName.classList.add('application_label_name')
         const spanLabelContent = document.createElement('span');
+        spanLabelContent.classList.add('application_label_content')
         spanLabelName.textContent = getLabelNameBySlug(labelsGlobal,displayKey);
         spanLabelContent.textContent = labelMap[displayKey] || '—';
 
@@ -41,10 +44,12 @@ async function previewApplications(data){
 
         // Create ID
         const spanID = document.createElement('span')
+        spanID.classList.add('application_id')
         spanID.textContent =app['id']
 
         // Create TYPE_NAME
         const spanName = document.createElement('span')
+        spanName.classList.add('application_name')
         spanName.textContent =app['name']
 
         // Create LABELS
@@ -53,18 +58,27 @@ async function previewApplications(data){
 
         // Create VIEWED
         const spanView = document.createElement('span')
-        spanView.textContent = app['viewed'] === '1' ? 'Переглянуто' : 'Не переглянуто';
+        if (app['viewed'] === '1'){
+            spanView.classList.add('application_view')
+            spanView.textContent = 'Переглянуто'
+        }else{
+            spanView.classList.add('application_not_view')
+            spanView.textContent = 'Не переглянуто'
+        }
 
         // Create TIME_CREATED
         const spanTime = document.createElement('span')
+        spanTime.classList.add('application_time')
         spanTime.textContent =app['created_at']
 
         // Create ACTIONS
         const divActions = document.createElement('div')
         const btnView = document.createElement('input')
+        btnView.classList.add('application_action_view')
         btnView.type = 'button'
         btnView.value = 'View'
         const btnRemove = document.createElement('input')
+        btnRemove.classList.add('application_action_remove')
         btnRemove.type = 'button'
         btnRemove.value = 'Remove'
 

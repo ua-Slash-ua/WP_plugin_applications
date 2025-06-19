@@ -32,12 +32,20 @@ function render_sl_app_applications_page()
                             <option value="" disabled selected hidden>Виберіть тип заявки</option>
                         </select>
                     </div>
+                    <div class="filtered_ed_view">
+                        <select name="" id="filtered_ed_view" >
+                            <option value="" disabled selected hidden>Виберіть статус перегляду</option>
+                            <option value="view">Переглянуто</option>
+                            <option value="not_view">Не переглянуто</option>
+                        </select>
+                    </div>
                     <div class="filtered_ed_label">
                         <select name="" id="filtered_ed_label">
                             <option value="" disabled selected hidden>Виберіть поле заявки</option>
                         </select>
                         <input type="text" id="filtered_ed_label_value" placeholder="Вкажіть значення поля">
                     </div>
+
                     <div class="filtered_action">
                         <input type="button" value="Filter" id="app_filter">
                     </div>
