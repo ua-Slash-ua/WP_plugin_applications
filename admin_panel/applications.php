@@ -63,6 +63,22 @@ function render_sl_app_applications_page()
 
                     </ul>
                 </div>
+                <div class="pop-up-overlay"></div>
+                <div class="pop-up-application">
+                    <div class="pop-ap-app-header">
+                        <h3>Перегляд заявки</h3>
+                        <div class="btn-close"></div>
+                    </div>
+                    <div class="pop-ap-app-content">
+                        <ul class="pop-ap-app-content_list">
+
+                        </ul>
+                    </div>
+                    <div class="pop-ap-app-action">
+                        <input type="button" value="Check as viewed" id="appBtnView">
+                        <input type="button" value="Remove" id="appBtnRemove">
+                    </div>
+                </div>
 
             </div>
 

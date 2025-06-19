@@ -33,6 +33,72 @@ async function previewApplications(data){
 
         return divLabel;
     }
+    function processPopUp(app){
+        let previewPriority = {
+            'id':"ID заявки: ",
+            'name':"Назва типу заявки: ",
+            'viewed':"Статус перегляду: ",
+            'labels':"Поля заявки: ",
+            'created_at':"Дата створення: ",
+
+    }
+        const popup = document.querySelector('.pop-up-application');
+        const content = document.querySelector('.pop-ap-app-content_list');
+        const btnCheckView = document.getElementById('appBtnView');
+        content.innerHTML = ''
+        document.querySelector('.btn-close').addEventListener('click', ()=>{
+            popup.style.display = 'none'
+            document.querySelector('.pop-up-overlay').style.display = 'none';
+        })
+        for (let data_key in previewPriority){
+            let data_name = previewPriority[data_key]
+            let data_value = app[data_key]
+            const liItem = document.createElement('li')
+            liItem.classList.add('pop-up-item')
+            const itemName = document.createElement('span')
+            const itemContent = document.createElement('span')
+
+            itemName.classList.add('pop-up-item-name')
+            itemContent.classList.add('pop-up-item-content')
+            itemName.textContent = data_name
+            liItem.appendChild(itemName)
+            if (data_key ==='viewed'){
+                itemContent.textContent = data_value === '1' ? 'Переглянуто' : 'Не переглянуто'
+                itemContent.classList.add(data_value === '1' ? 'view' : 'not_view')
+                btnCheckView.value =  'Позначити як ' + (data_value === '1' ? 'не переглянута' : 'Переглянута')
+            }else if(data_key ==='labels') {
+                app[data_key].forEach(label=>{
+                    const divLabel = document.createElement('div')
+                    const labelName = document.createElement('span')
+                    const labelContent = document.createElement('span')
+
+                    labelName.classList.add('label_name')
+                    labelContent.classList.add('label_content')
+                    labelName.textContent = label['meta_key']
+                    labelContent.textContent = label['meta_value']
+
+
+                    divLabel.appendChild(labelName)
+                    divLabel.appendChild(labelContent)
+
+                    itemContent.appendChild(divLabel)
+                })
+
+
+            }else {
+                itemContent.textContent = data_value
+            }
+
+            liItem.appendChild(itemContent)
+            content.appendChild(liItem)
+        }
+
+
+
+
+        popup.style.display = 'block'
+        document.querySelector('.pop-up-overlay').style.display = 'block';
+    }
 
     if (!Array.isArray(data)){
         data = [data]
@@ -73,10 +139,14 @@ async function previewApplications(data){
 
         // Create ACTIONS
         const divActions = document.createElement('div')
+        divActions.classList.add('application_action')
         const btnView = document.createElement('input')
         btnView.classList.add('application_action_view')
         btnView.type = 'button'
         btnView.value = 'View'
+        btnView.addEventListener('click', function (){
+            processPopUp(app)
+        })
         const btnRemove = document.createElement('input')
         btnRemove.classList.add('application_action_remove')
         btnRemove.type = 'button'
@@ -99,8 +169,6 @@ async function previewApplications(data){
 
 async function loadApplications() {
     await previewApplications(await handleApplication('sl_get_applications',[]))
-    console.log(await handleApplication('sl_get_applications',[]))
-
 }
 document.addEventListener("DOMContentLoaded", async function () {
     labelsGlobal = await handleOption('sl_get_option', [], 'endpoint_label')
