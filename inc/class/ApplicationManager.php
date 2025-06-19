@@ -60,5 +60,23 @@ class ApplicationManager {
 
         return $result !== false;
     }
+    /**
+     * Видаляє заявку з таблиці wp_sl_application за ID
+     *
+     * @param int $id ID заявки
+     * @return bool true у разі успіху, false — якщо помилка
+     */
+    public function delete(int $id): bool
+    {
+        global $wpdb;
+
+        $result = $wpdb->delete(
+            $this->table,
+            [ 'id' => $id ],
+            [ '%d' ]
+        );
+
+        return $result !== false;
+    }
 
 }

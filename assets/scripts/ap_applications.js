@@ -45,6 +45,7 @@ async function previewApplications(data){
         const popup = document.querySelector('.pop-up-application');
         const content = document.querySelector('.pop-ap-app-content_list');
         const btnCheckView = document.getElementById('appBtnView');
+        const btnCheckRemove = document.getElementById('appBtnRemove');
         content.innerHTML = ''
         document.querySelector('.btn-close').addEventListener('click', ()=>{
             popup.style.display = 'none'
@@ -101,7 +102,14 @@ async function previewApplications(data){
             liItem.appendChild(itemContent)
             content.appendChild(liItem)
         }
-
+        btnCheckRemove.addEventListener('click', async ()=>{
+            let statusRemove = await handleApplication('sl_remove_application',[],app['id'])
+            if(statusRemove){
+                await loadApplications()
+                popup.style.display = 'none'
+                document.querySelector('.pop-up-overlay').style.display = 'none';
+            }
+        })
 
 
 
@@ -113,6 +121,7 @@ async function previewApplications(data){
         data = [data]
     }
     const previewContainer = document.querySelector('.preview_container_list')
+
     previewContainer.innerHTML = ''
     data.forEach(app=>{
         const liContainer = document.createElement('li')
@@ -160,7 +169,12 @@ async function previewApplications(data){
         btnRemove.classList.add('application_action_remove')
         btnRemove.type = 'button'
         btnRemove.value = 'Remove'
-
+        btnRemove.addEventListener('click', async ()=>{
+            let statusRemove = await handleApplication('sl_remove_application',[],app['id'])
+            if(statusRemove){
+                await loadApplications()
+            }
+        })
         divActions.appendChild(btnView)
         divActions.appendChild(btnRemove)
 

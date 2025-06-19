@@ -83,4 +83,23 @@ class ApplicationMetaManager
         return $wpdb->get_results($query, ARRAY_A);
     }
 
+    /**
+     * Видаляє всі мета-записи для переданого main_id
+     *
+     * @param int $main_id ID основної заявки
+     * @return bool true у разі успіху, false — якщо помилка
+     */
+    public function deleteByMainId(int $main_id): bool
+    {
+        global $wpdb;
+
+        $result = $wpdb->delete(
+            $this->table,
+            [ 'main_id' => $main_id ],
+            [ '%d' ]
+        );
+
+        return $result !== false;
+    }
+
 }

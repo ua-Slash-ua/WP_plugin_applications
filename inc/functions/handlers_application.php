@@ -31,3 +31,18 @@ function sl_handle_set_view(): void
 
 add_action('wp_ajax_sl_set_view', 'sl_handle_set_view');
 add_action('wp_ajax_nopriv_sl_set_view', 'sl_handle_set_view');
+function sl_handle_remove_application(): void
+{
+    $data = json_decode(stripslashes($_POST['data']), true);
+    $idApp = (int) $data['id'];
+
+    $status = remove_application($idApp);
+    if (!$status) {
+        wp_send_json_error(['message' => "Заявку ${$idApp} не видалено"]);
+    } else {
+        wp_send_json_success(['message' => "Заявку ${$idApp} видалено!"]);
+    }
+}
+
+add_action('wp_ajax_sl_remove_application', 'sl_handle_remove_application');
+add_action('wp_ajax_nopriv_sl_remove_application', 'sl_handle_remove_application');

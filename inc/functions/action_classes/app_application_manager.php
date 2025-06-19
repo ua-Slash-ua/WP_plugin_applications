@@ -67,3 +67,15 @@ function set_view(int $applicationId, bool $viewed): bool
     $viewed = $viewed? 1:0;
     return $appManager->setViewedStatus($applicationId, $viewed);
 }
+
+function remove_application(int $applicationId): bool
+{
+    global $appManager, $appMetaManager;
+    $statusApp = $appManager->delete($applicationId);
+    $statusAppMeta = $appMetaManager->deleteByMainId($applicationId);
+    if ($statusApp && $statusAppMeta) {
+        return true;
+    }else{
+        return false;
+    }
+}
