@@ -39,6 +39,10 @@ function render_sl_app_applications_page()
                             <option value="not_view">Не переглянуто</option>
                         </select>
                     </div>
+                    <div class="filtered_ed_date_start">
+                        <label for="filtered_ed_date_start">Виберіть початкову дату</label>
+                        <input type="date" id="filtered_ed_date_start">
+                    </div>
                     <div class="filtered_ed_label">
                         <select name="" id="filtered_ed_label">
                             <option value="" disabled selected hidden>Виберіть поле заявки</option>
