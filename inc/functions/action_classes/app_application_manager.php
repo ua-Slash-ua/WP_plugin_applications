@@ -39,27 +39,58 @@ function add_application(string $name, string $type, array $labels): string
 
 }
 
-function get_applications(): array
-{
+function get_applications($dataFilter): array {
     global $appManager, $appMetaManager;
+
+    $filters = $dataFilter['value'] ?? [];
+
     $applications = [];
     $allApplications = $appManager->get_all();
 
     foreach ($allApplications as $application) {
         $idApp = $application->id;
+        $match = true;
 
-        // Отримуємо мета-дані
-        $labels = $appMetaManager->getAll($idApp);
+        // === Фільтр за типом заявки ===
+        if (isset($filters['type']) && $filters['type'] !== '' && $application->type !== $filters['type']) {
+            $match = false;
+        }
 
-        // Перетворюємо об'єкт на масив (щоб можна було додати ключ)
-        $applicationArray = (array) $application;
-        $applicationArray['labels'] = $labels;
+        // === Фільтр за статусом перегляду ===
+        if (isset($filters['viewed']) && $filters['viewed'] !== '' && (string)$application->viewed !== (string)$filters['viewed']) {
+            $match = false;
+        }
 
-        $applications[] = $applicationArray;
+        // === Фільтр за датою створення (від) ===
+        if (isset($filters['date_start']) && $filters['date_start'] !== '' && strtotime($application->created_at) < strtotime($filters['date_start'])) {
+            $match = false;
+        }
+
+        // === Фільтр за конкретним полем заявки ===
+        if (
+            isset($filters['label_name'], $filters['label_value']) &&
+            $filters['label_name'] !== '' &&
+            $filters['label_value'] !== ''
+        ) {
+            $metaMatches = $appMetaManager->getByFields($idApp, $filters['label_name'], $filters['label_value']);
+            if (empty($metaMatches)) {
+                $match = false;
+            }
+        }
+
+        // === Якщо всі умови виконано — додаємо ===
+        if ($match) {
+            $labels = $appMetaManager->getAll($idApp);
+            $applicationArray = (array) $application;
+            $applicationArray['labels'] = $labels;
+            $applications[] = $applicationArray;
+        }
     }
 
     return $applications;
 }
+
+
 
 function set_view(int $applicationId, bool $viewed): bool
 {

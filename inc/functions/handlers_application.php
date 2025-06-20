@@ -1,8 +1,8 @@
 <?php
 function sl_handle_get_applications(): void
 {
-
-    $applications = get_applications();
+    $dataFilter = json_decode(stripslashes($_POST['data']), true);
+    $applications = get_applications($dataFilter);
 
     if (!$applications) {
         wp_send_json_error(['message' => "Заявки не отримано!"]);

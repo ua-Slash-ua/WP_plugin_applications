@@ -193,9 +193,35 @@ async function previewApplications(data){
 async function loadApplications() {
     await previewApplications(await handleApplication('sl_get_applications',[]))
 }
+async function loadApplicationsOnFilter(){
+    let data = {}
+    const btnFilter = document.getElementById('app_filter')
+
+    btnFilter.addEventListener('click', async function(){
+        const selectType = document.getElementById('filtered_ed_type')
+        const selectView = document.getElementById('filtered_ed_view')
+        const inputDateStart = document.getElementById('filtered_ed_date_start')
+        const selectLabel = document.getElementById('filtered_ed_label')
+        const inputLabel = document.getElementById('filtered_ed_label_value')
+        data['type'] = selectType.value.trim()
+        if (selectView.value.trim() ==='view'){
+            data['viewed'] = '1'
+        }else if (selectView.value.trim() ==='not_view'){
+            data['viewed'] = '0'
+        }else{
+            data['viewed'] = ''
+        }
+        data['date_start'] = inputDateStart.value.trim()
+        data['label_name'] = selectLabel.value.trim()
+        data['label_value'] = inputLabel.value.trim()
+        await previewApplications(await handleApplication('sl_get_applications',data))
+    })
+
+}
 document.addEventListener("DOMContentLoaded", async function () {
     labelsGlobal = await handleOption('sl_get_option', [], 'endpoint_label')
     await loadApplications()
+    await loadApplicationsOnFilter()
     await loadChooseTypeOrLabel(labelsGlobal,'filtered_ed_label')
     await loadChooseTypeOrLabel(await handleOption('sl_get_option', [], 'endpoint_type'),'filtered_ed_type')
 })

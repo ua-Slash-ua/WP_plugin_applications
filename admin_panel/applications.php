@@ -34,7 +34,7 @@ function render_sl_app_applications_page()
                     </div>
                     <div class="filtered_ed_view">
                         <select name="" id="filtered_ed_view" >
-                            <option value="" disabled selected hidden>Виберіть статус перегляду</option>
+                            <option value="" selected>Виберіть статус перегляду</option>
                             <option value="view">Переглянуто</option>
                             <option value="not_view">Не переглянуто</option>
                         </select>
