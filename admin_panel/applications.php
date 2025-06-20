@@ -51,8 +51,8 @@ function render_sl_app_applications_page()
                     </div>
 
                     <div class="filtered_action">
-                        <input type="button" value="Filter" id="app_filter">
-                        <input type="button" value="Drop filters" id="app_drop_filter">
+                        <input type="button" value="Фільтрувати" id="app_filter">
+                        <input type="button" value="Скинути фільтри" id="app_drop_filter">
                     </div>
                 </div>
                 <div class="preview-container">
@@ -80,8 +80,8 @@ function render_sl_app_applications_page()
                         </ul>
                     </div>
                     <div class="pop-ap-app-action">
-                        <input type="button" value="Check as viewed" id="appBtnView">
-                        <input type="button" value="Remove" id="appBtnRemove">
+                        <input type="button" value="Позначити як ПЕРЕГЛЯНУТУ" id="appBtnView">
+                        <input type="button" value="Видалити заявку" id="appBtnRemove">
                     </div>
                 </div>
 

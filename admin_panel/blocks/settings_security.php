@@ -29,8 +29,8 @@ function render_settings_security(){
                                     <label for="ba_add_password">Password</label>
                                     <input type="text" id="ba_add_password" placeholder="Auth Password">
                                     <div class="ba_add_action">
-                                        <input type="button" id="ba_add_generate" value="Generate">
-                                        <input type="button" id="ba_add_add" value="Add">
+                                        <input type="button" id="ba_add_generate" value="Згенерувати">
+                                        <input type="button" id="ba_add_add" value="Додати">
                                     </div>
                                 </div>
 

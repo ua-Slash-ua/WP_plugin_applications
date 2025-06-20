@@ -152,7 +152,7 @@ async function loadEndpoints(data) {
         const actionContainer = document.createElement('div')
         const btnRemove = document.createElement('input')
         btnRemove.type = 'button'
-        btnRemove.value = 'Remove'
+        btnRemove.value = 'Видалити'
         btnRemove.addEventListener('click', async function () {
             let endData = await checkData([endpoint['path_end']], 'endpoints', true,['path_end'])
             let status = await handleOption('sl_remove_option',null, 'endpoints',endData[0]['id'])
@@ -163,7 +163,7 @@ async function loadEndpoints(data) {
 
         const btnEdit = document.createElement('input')
         btnEdit.type = 'button'
-        btnEdit.value = 'Edit'
+        btnEdit.value = 'Редагувати'
 
         actionContainer.appendChild(btnEdit)
         actionContainer.appendChild(btnRemove)

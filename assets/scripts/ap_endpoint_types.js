@@ -58,7 +58,7 @@ function loadEndpointTypes(data) {
 
             const btnEdit = document.createElement('input');
             btnEdit.type = 'button';
-            btnEdit.value = 'Edit';
+            btnEdit.value = 'Редагувати';
             btnEdit.addEventListener('click', function () {
                 let new_data = {};
                 const popUp = document.querySelector('.pop-up-edit-type');
@@ -85,7 +85,7 @@ function loadEndpointTypes(data) {
 
             const btnRemove = document.createElement('input');
             btnRemove.type = 'button';
-            btnRemove.value = 'X';
+            btnRemove.value = 'Видалити';
             btnRemove.addEventListener('click', async function () {
                 await handleOption('sl_remove_option', type, 'endpoint_type')
                 await loadEndpointTypes( await handleOption('sl_get_option', [], 'endpoint_type'))

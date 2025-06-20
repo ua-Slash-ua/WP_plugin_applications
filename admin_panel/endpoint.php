@@ -37,35 +37,35 @@ function render_sl_app_endpoint_page()
 
                             <div class="ep_add_container">
                                 <div class="ep_add_text_data_container">
-                                    <label for="ep_add_text_name">Endpoint name</label>
+                                    <label for="ep_add_text_name">Назва ендпоінту</label>
                                     <input type="text" id="ep_add_text_name">
 
                                 </div>
                                 <div class="ep_add_path_container">
-                                    <label for="ep_add_path_end">End Path</label>
+                                    <label for="ep_add_path_end">Кінцевий шлях</label>
                                     <input type="text" id="ep_add_path_end">
                                 </div>
                                 <div class="ep_add_method_container">
-                                    <label for="ep_add_method">Choose type</label>
-                                    <select id="ep_add_method">POST
+                                    <label for="ep_add_method">Виберіть метод</label>
+                                    <select id="ep_add_method">
                                         <option value="ep_add_method_post">POST</option>
                                     </select>
                                 </div>
                                 <div class="ep_add_type_container">
-                                    <label for="ep_add_type">Choose type</label>
+                                    <label for="ep_add_type">Виберіть тип</label>
                                     <select id="ep_add_type">
                                         <option value = "none" disabled selected hidden>Виберіть тип ендпоінту</option>
                                     </select>
                                 </div>
                                 <div class="ep_add_label_container">
-                                    <label for="ep_add_labels">Choose labels</label>
+                                    <label for="ep_add_labels">Додайте поля</label>
                                     <select id="ep_add_labels" multiple>
 
                                     </select>
                                 </div>
 
                                 <div class="ep_add_action_container">
-                                    <input type="button" value="Add Endpoint" id="ep_endpoint_btn_add">
+                                    <input type="button" value="Створити ендпоінт" id="ep_endpoint_btn_add">
                                 </div>
 
                             </div>
@@ -119,7 +119,7 @@ function render_sl_app_endpoint_page()
                                     <span id="file_size_value">1 МБ</span>
                                 </div>
                                 <div class="label_add_action">
-                                    <input type="button" value="Add" id="l_action_add">
+                                    <input type="button" value="Створити поле" id="l_action_add">
                                 </div>
                             </div>
 

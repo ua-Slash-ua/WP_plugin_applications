@@ -57,7 +57,7 @@ async function loadLabels(data) {
         const elContainerAction = document.createElement('div')
         const btnRemove = document.createElement('input')
         btnRemove.type = 'button'
-        btnRemove.value = 'Delete'
+        btnRemove.value = 'Видалити'
         btnRemove.addEventListener('click', async function () {
             let status = await handleOption('sl_remove_option', data, 'endpoint_label')
             if(status){

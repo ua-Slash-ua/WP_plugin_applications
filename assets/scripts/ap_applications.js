@@ -161,14 +161,14 @@ async function previewApplications(data){
         const btnView = document.createElement('input')
         btnView.classList.add('application_action_view')
         btnView.type = 'button'
-        btnView.value = 'View'
+        btnView.value = 'Додатково'
         btnView.addEventListener('click', function (){
             processPopUp(app)
         })
         const btnRemove = document.createElement('input')
         btnRemove.classList.add('application_action_remove')
         btnRemove.type = 'button'
-        btnRemove.value = 'Remove'
+        btnRemove.value = 'Видалити'
         btnRemove.addEventListener('click', async ()=>{
             let statusRemove = await handleApplication('sl_remove_application',[],app['id'])
             if(statusRemove){
