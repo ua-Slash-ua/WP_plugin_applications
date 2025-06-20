@@ -52,6 +52,7 @@ function render_sl_app_applications_page()
 
                     <div class="filtered_action">
                         <input type="button" value="Filter" id="app_filter">
+                        <input type="button" value="Drop filters" id="app_drop_filter">
                     </div>
                 </div>
                 <div class="preview-container">

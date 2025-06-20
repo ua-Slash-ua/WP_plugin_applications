@@ -218,10 +218,30 @@ async function loadApplicationsOnFilter(){
     })
 
 }
+async function dropFilters(){
+    const btnFilterDrop = document.getElementById('app_drop_filter')
+
+    btnFilterDrop.addEventListener('click', async function(){
+        const selectType = document.getElementById('filtered_ed_type')
+        const selectView = document.getElementById('filtered_ed_view')
+        const inputDateStart = document.getElementById('filtered_ed_date_start')
+        const selectLabel = document.getElementById('filtered_ed_label')
+        const inputLabel = document.getElementById('filtered_ed_label_value')
+        selectType.value = '';
+        selectView.value = '';
+        inputDateStart.value = '';
+        selectLabel.value = '';
+        inputLabel.value = '';
+
+
+        await previewApplications(await handleApplication('sl_get_applications',[]))
+    })
+}
 document.addEventListener("DOMContentLoaded", async function () {
     labelsGlobal = await handleOption('sl_get_option', [], 'endpoint_label')
     await loadApplications()
     await loadApplicationsOnFilter()
+    await dropFilters()
     await loadChooseTypeOrLabel(labelsGlobal,'filtered_ed_label')
     await loadChooseTypeOrLabel(await handleOption('sl_get_option', [], 'endpoint_type'),'filtered_ed_type')
 })

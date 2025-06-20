@@ -376,3 +376,24 @@
     border-radius: 4px;
     color: #0073aa;
 }
+#app_drop_filter {
+    padding: 8px 16px;
+    background-color: #dc3545; /* червоний */
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#app_drop_filter:hover {
+    background-color: #c82333;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+#app_drop_filter:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.4);
+}

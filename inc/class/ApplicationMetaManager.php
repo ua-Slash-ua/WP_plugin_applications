@@ -101,5 +101,20 @@ class ApplicationMetaManager
 
         return $result !== false;
     }
+    public function getByFields(int $main_id, string $meta_key, string $meta_value): array
+    {
+        global $wpdb;
+        // Додаємо % для часткового пошуку
+        $like_value = '%' . $wpdb->esc_like($meta_value) . '%';
+
+        $sql = $wpdb->prepare(
+            "SELECT * FROM {$this->table} WHERE main_id = %d AND meta_key = %s AND meta_value LIKE %s",
+            $main_id,
+            $meta_key,
+            $like_value
+        );
+        return $wpdb->get_results($sql);
+    }
+
 
 }
